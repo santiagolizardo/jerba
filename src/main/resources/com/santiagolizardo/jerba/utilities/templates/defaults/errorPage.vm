@@ -1,0 +1,9 @@
+#parse("header.vm")
+
+<p>The page you are looking for is not here anymore or maybe an error with the servers has just ocurred.</p>
+
+<p>Use the search form below or try again later.</p>
+
+#parse("search/form.vm")
+
+#parse("footer.vm")

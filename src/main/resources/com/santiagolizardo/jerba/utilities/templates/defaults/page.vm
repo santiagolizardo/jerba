@@ -1,0 +1,19 @@
+#parse("header.vm")
+
+<h2>$article.title</h2>
+#if($article.children.size() > 0)
+<div>
+	#foreach($subPage in $article.children)
+	<a href="/page/$esc.url($subPage.title)/$subPage.key.id">$subPage.title</a>
+	#if($velocityCount < $article.children.size())
+	 - 
+	#end 
+	#end
+</div>
+#end
+
+<div>
+$article.content.value
+</div>
+
+#parse("footer.vm")

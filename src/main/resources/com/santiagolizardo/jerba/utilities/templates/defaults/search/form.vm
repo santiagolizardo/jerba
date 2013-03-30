@@ -1,0 +1,6 @@
+
+<form action="/search" method="get">
+	<label for="searchQuery">Search</label>
+	<input type="text" name="query" id="searchQuery" value="" />
+	<input type="submit" value="Search" />
+</form>

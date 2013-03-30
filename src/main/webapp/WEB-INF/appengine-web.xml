@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+	<application>jerba</application>
+	<version>${appengine.app.version}</version>
+	<threadsafe>false</threadsafe>
+
+	<!-- Configure java.util.logging -->
+	<system-properties>
+		<property name="java.util.logging.config.file" value="WEB-INF/logging.properties" />
+	</system-properties>
+
+	<admin-console>
+		<page name="Jerba administration panel" url="/admin/" />
+	</admin-console>
+
+	<static-files>
+		<include path="/favicon.ico" expiration="4d 5h" />
+		<include path="/styles/**" expiration="4d 5h" />
+		<include path="/scripts/**" expiration="4d 5h" />
+		<include path="/images/**" expiration="4d 5h" />
+		<include path="/bootstrap/**" expiration="4d 5h" />
+	</static-files>
+
+</appengine-web-app>

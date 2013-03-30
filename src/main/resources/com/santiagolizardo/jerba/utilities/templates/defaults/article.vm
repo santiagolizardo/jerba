@@ -1,0 +1,11 @@
+#parse("header.vm")
+
+<h2>$article.title</h2>
+<time datetime="$post.publicationDate">$article.publicationDate</time>
+
+<div>
+$article.content.value
+</div>
+<p class="icon_tag"><strong>Keywords:</strong> $article.keywords</p>
+
+#parse("footer.vm")

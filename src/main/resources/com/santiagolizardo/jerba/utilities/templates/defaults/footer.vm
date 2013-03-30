@@ -1,0 +1,15 @@
+
+</div>
+
+<div style="clear: both;"></div>
+
+</div>
+
+<ul class="footer-links">
+	<li class="icon_organisation"><a title="Website structure" href="/sitemap">Sitemap</a> (<a title="Website structure in XML" href="/sitemap.xml"><acronym title="Extensible Markup Language">XML</acronym></a>)</li>
+	<li class="icon_information"><a title="Contact form" href="/contact">Contact form and information</a></li>
+	<li class="icon_feed"><a title="Latest articles in XML" href="$feedUrl">Latest articles in XML (feed)</a></li>
+</ul>
+
+</body>
+</html>

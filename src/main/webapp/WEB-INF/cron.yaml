@@ -1,0 +1,4 @@
+cron:
+- description: Updates search index. 
+  url: /search/index-update
+  schedule: every 24 hours

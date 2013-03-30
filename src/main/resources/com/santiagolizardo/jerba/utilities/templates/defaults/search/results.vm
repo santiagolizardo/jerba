@@ -1,0 +1,14 @@
+#parse("header.vm")
+
+<h2>Search results: $query</h2>
+<ol>
+#foreach($result in $results)
+	<li>
+		 <h3><a href="$urlFactory.createPostUrl( $result )">$result.title</a></h3>
+		<p>$result.description</p>
+		<p class="icon_tag"><strong>Keywords:</strong> $result.keywords</p>
+	</li> 
+#end
+</ol>
+
+#parse("footer.vm")

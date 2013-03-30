@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+#if($metaDesc)
+	<meta name="description" content="$metaDesc" />
+#end
+#if($metaKeywords)
+	<meta name="keywords" content="$metaKeywords" />
+#end
+#if($pageTitle)
+	<title>$pageTitle</title>
+#end
+	<link type="text/css" href="/template?fileName=default.css&amp;contentType=text/css" rel="stylesheet" />
+	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+	<link rel="alternate" type="application/rss+xml" href="$feedUrl" title="$feedDescription" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+</head>
+<body>
+
+<div style="font-size: x-large; font-variant: smallcaps;">
+	$config.getValue('website.name') - <a href="/" style="font-weight: bold;">$config.getValue('website.slogan')</a>
+</div>
+
+<div id="body">
+
+<div id="menu">
+	<h2>Navigation</h2>
+
+	<ul class="main-links">
+		#foreach($page in $pages)
+			<li class="icon_page"><a href="/page/$webUtils.sanitizeURL($page.title)/$page.key.id">$page.title</a></li> 
+		#end
+		<li class="icon_calendar"><a href="/archive">Archive</a></li>
+		<li class="icon_information"><a href="/contact">Contact information</a></li>
+	</ul>
+	
+#parse("search/form.vm")
+</div>
+
+<div id="content">

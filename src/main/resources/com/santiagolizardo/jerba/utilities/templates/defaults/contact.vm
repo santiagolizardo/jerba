@@ -1,0 +1,41 @@
+#parse("header.vm")
+
+<script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
+
+<h2>Contact information</h2>
+
+<form class="contact-form" action="/contact" method="post">
+<input type="hidden" name="action" value="contact" />
+
+<p>
+<label for="fromName">Your name</label>
+<input type="text" name="fromName" id="fromName" required="required" />
+</p>
+
+<p>
+<label for="fromEmail">Your email</label>
+<input type="email" name="fromEmail" id="fromEmail" required="required" />
+</p>
+
+<p>
+<label for="subject">Subject</label>
+<input type="text" name="subject" id="subject" required="required" />
+</p>
+
+<p>
+<label for="message">Message</label>
+<textarea name="message" id="message" required="required"></textarea>
+</p>
+
+<p>
+<label for="captcha">Anti bots and spam validation</label>
+$htmlCaptcha
+</p>
+
+<p>
+<input type="submit" value="Send message" />
+</p>
+
+</form>
+
+#parse("footer.vm")

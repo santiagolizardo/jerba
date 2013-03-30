@@ -1,0 +1,22 @@
+#parse("header.vm")
+
+<h2>Sitemap</h2>
+
+<ul class="sitemap-links">
+	<li class="icon_house"><a href="/">Home</a></li>
+	#foreach($page in $pages)
+		<li class="icon_page"><a href="$urlFactory.createPageUrl($page)">$page.title</a>
+		#if($page.children)
+		<ul>
+		#foreach($subPage in $page.children)
+		<li class="icon_page"><a href="$urlFactory.createPageUrl($subPage)">$subPage.title</a></li>
+		#end
+		</ul>
+		#end
+	</li>
+	#end
+	<li class="icon_calendar"><a href="/archive">Archive</a></li>
+	<li class="icon_organisation"><a href="/contact">Contact form and information</a></li>
+</ul>
+
+#parse("footer.vm")

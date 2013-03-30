@@ -1,0 +1,87 @@
+
+body {
+	padding: 20px;
+	font-size: large;
+	font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+}
+
+table { width: 100%; }
+
+a, a:hover, a:active, a:link, a:active, a:visited {
+	color: blue;
+}
+
+label
+{
+	display: block;
+}
+
+textarea
+{
+	width: 90%;
+}
+
+time
+{
+	background: url('/images/date.png') no-repeat;
+	padding-left: 20px;
+	font-size: small;
+}
+
+p.icon_comment
+{
+	background: url('/images/comment.png') no-repeat;
+	padding-left: 20px;
+}
+
+p.icon_tag
+{
+	background: url('/images/tag_blue.png') no-repeat;
+	padding-left: 20px;
+	font-size: small;
+}
+
+ul.archive-links, ul.sitemap-links, ul.main-links, ul.footer-links
+{
+	margin: 0px;
+	padding: 0px;
+}
+ul.footer-links
+{
+	margin-top: 40px;
+	text-align: center;
+}
+ul.footer-links > li
+{
+	display: inline;
+	margin-right: 30px;
+}
+ul.archive-links > li, ul.sitemap-links li, ul.main-links > li, ul.footer-links > li
+{
+	padding-left: 20px;
+	list-style-type: none;
+	background-repeat: no-repeat;
+	background-position: 0px 2px;
+}
+
+li.icon_house { background-image: url('/images/house.png'); }
+li.icon_page { background-image: url('/images/page.png'); }
+li.icon_calendar { background-image: url('/images/calendar.png'); }
+li.icon_information { background-image: url('/images/information.png'); }
+li.icon_organisation { background-image: url('/images/chart_organisation.png'); }
+li.icon_feed { background-image: url('/images/feed.png'); }
+
+div#menu {
+	float: left;
+	width: 20%;
+	padding-bottom: 20px;
+}
+
+div#content {
+	width: 70%;
+	float: right;
+}
+
+div#footer {
+	text-align: center;
+}

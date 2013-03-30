@@ -1,0 +1,13 @@
+#parse("header.vm")
+
+<h2>Articles by date</h2>
+
+#foreach($archive in $archives)
+	<ul class="archive-links">
+	<strong>$archive.month / $archive.year</strong>
+	#foreach($article in $archive.articles)
+		<li class="icon_page"><a href="/article/$webUtils.sanitizeURL($article.title)/$article.key.id">$!article.title</a></li>
+	#end
+	</ul>
+#end
+#parse("footer.vm")
