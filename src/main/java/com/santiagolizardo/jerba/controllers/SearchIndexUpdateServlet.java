@@ -21,10 +21,12 @@ public class SearchIndexUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
+		SearchManager searchManager = SearchManager.getInstance();
+
 		List<Article> articles = ArticleManager.getInstance().findAll();
-		Index index = SearchManager.getInstance().getIndex();
+		Index index = searchManager.getIndex();
 		for (Article article : articles) {
-			Document doc = SearchManager.getInstance().createDocument(article);
+			Document doc = searchManager.createDocument(article);
 			index.put(doc);
 		}
 	}

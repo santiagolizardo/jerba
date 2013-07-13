@@ -1,6 +1,11 @@
+<%@page import="com.santiagolizardo.jerba.model.PMF"%>
+<%@page import="javax.jdo.PersistenceManager"%>
 <%
 String id = request.getParameter("identifier");
-Template tpl = TemplateManager.getInstance().findById(id);
+
+PersistenceManager pm = PMF.get().getPersistenceManager();
+Template tpl = new TemplateManager(pm).findById(id);
+pm.close();
 %>
 <%@page import="java.util.List"%>
 <%@page import="com.santiagolizardo.jerba.model.Template"%>

@@ -15,7 +15,7 @@
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 	<link rel="alternate" type="application/rss+xml" href="$feedUrl" title="$feedDescription" />
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="/scripts/jquery.min.js"></script>
 </head>
 <body>
 
@@ -29,14 +29,16 @@
 	<h2>Navigation</h2>
 
 	<ul class="main-links">
-		#foreach($page in $pages)
-			<li class="icon_page"><a href="/page/$webUtils.sanitizeURL($page.title)/$page.key.id">$page.title</a></li> 
+		#foreach( $page in $pages )
+			<li class="icon_page"><a href="$urlFactory.createPageUrl( $page )">$page.title</a></li> 
 		#end
 		<li class="icon_calendar"><a href="/archive">Archive</a></li>
 		<li class="icon_information"><a href="/contact">Contact information</a></li>
 	</ul>
 	
-#parse("search/form.vm")
+	#parse("tagCloud.vm")
+	
+	#parse("search/form.vm")
 </div>
 
 <div id="content">

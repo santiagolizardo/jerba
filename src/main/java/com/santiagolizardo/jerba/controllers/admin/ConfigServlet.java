@@ -24,11 +24,14 @@ public class ConfigServlet extends BaseServlet {
 		String value = req.getParameter("value");
 
 		if (name != null && type != null && value != null) {
-			ConfigValue post = new ConfigValue();
-			post.setName(name);
-			post.setType(type);
-			post.setValue(value);
-			PMF.save(post);
+			ConfigValue configValue = new ConfigValue();
+			configValue.setName(name);
+			configValue.setType(type);
+			configValue.setValue(value);
+			
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			pm.makePersistent(configValue);
+			pm.close();
 		}
 
 		resp.sendRedirect("/admin/config/");
@@ -41,9 +44,9 @@ public class ConfigServlet extends BaseServlet {
 
 		if (name != null) {
 			PersistenceManager pm = PMF.get().getPersistenceManager();
-			ConfigValue value = ConfigManager.getInstance()
-					.findByName(pm, name);
+			ConfigValue value = new ConfigManager(pm).findByName(name);
 			pm.deletePersistent(value);
+			pm.close();
 		}
 
 		resp.sendRedirect("/admin/config/");

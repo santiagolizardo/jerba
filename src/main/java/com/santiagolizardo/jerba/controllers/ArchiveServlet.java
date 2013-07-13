@@ -1,21 +1,22 @@
 package com.santiagolizardo.jerba.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.cache.Cache;
+import javax.jdo.PersistenceManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.velocity.VelocityContext;
+
+import com.santiagolizardo.jerba.managers.ArchiveStatsManager;
 import com.santiagolizardo.jerba.managers.ArticleManager;
 import com.santiagolizardo.jerba.managers.ConfigManager;
-import com.santiagolizardo.jerba.model.Archive;
+import com.santiagolizardo.jerba.model.ArchiveStats;
 import com.santiagolizardo.jerba.model.Article;
-import com.santiagolizardo.jerba.model.ArticleType;
+import com.santiagolizardo.jerba.model.PMF;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
-
-import org.apache.velocity.VelocityContext;
 
 @SuppressWarnings("serial")
 public class ArchiveServlet extends BaseServlet {
@@ -28,25 +29,28 @@ public class ArchiveServlet extends BaseServlet {
 		if (cache.containsKey(cacheKey)) {
 			output = (String) cache.get(cacheKey);
 		} else {
-			ConfigManager configManager = ConfigManager.getInstance();
+			PersistenceManager pm = PMF.get().getPersistenceManager();
 
-			List<Article> articles = ArticleManager.getInstance().findByType(
-					ArticleType.Ephemeral, false);
+			ConfigManager configManager = new ConfigManager(pm);
+			String websiteTitleSuffix = configManager
+					.getValue(ConfigManager.WEBSITE_TITLE_SUFFIX);
 
-			Archive archive = new Archive();
-			archive.setDate(01, 2011);
-			archive.setArticles(articles);
+			ArticleManager articleManager = new ArticleManager(pm);
 
-			List<Archive> archives = new ArrayList<Archive>();
-			archives.add(archive);
+			List<ArchiveStats> archiveStats = new ArchiveStatsManager(pm)
+					.findAll();
+			for (ArchiveStats stats : archiveStats) {
+				List<Article> articles = articleManager.findByYearMonth(
+						stats.getYear(), stats.getMonth());
+				stats.getArticles().addAll(articles);
+			}
+			
+			pm.close();
 
 			VelocityContext context = prepareContext(req);
-			context.put("archives", archives);
-			context.put(
-					"pageTitle",
-					"Archive (articles by date) "
-							+ configManager
-									.getValue(ConfigManager.WEBSITE_TITLE_SUFFIX));
+			context.put("archiveStats", archiveStats);
+			context.put("pageTitle", "Archive (articles by date) "
+					+ websiteTitleSuffix);
 			output = generateTemplate("archive.vm", context);
 			cache.put(cacheKey, output);
 		}

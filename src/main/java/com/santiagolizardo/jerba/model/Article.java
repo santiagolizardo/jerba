@@ -38,6 +38,9 @@ public class Article {
 
 	@Persistent
 	private String title;
+	
+	@Persistent
+	private String sanitizedTitle;
 
 	@Persistent
 	private String description;
@@ -117,6 +120,14 @@ public class Article {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public String getSanitizedTitle() {
+		return sanitizedTitle;
+	}
+	
+	public void setSanitizedTitle(String sanitizedTitle) {
+		this.sanitizedTitle = sanitizedTitle;
 	}
 
 	public String getDescription() {

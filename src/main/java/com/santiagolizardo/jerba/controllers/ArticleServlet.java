@@ -23,26 +23,20 @@ public class ArticleServlet extends BaseServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String[] tokens = req.getRequestURI().split("/");
-		if (4 != tokens.length) {
+		if (3 < tokens.length) {
 			resp.sendError(404);
 			return;
 		}
-		Long id = null;
-		try {
-			id = Long.parseLong(tokens[3]);
-		} catch (Exception e) {
-			resp.sendError(500);
-			return;
-		}
+		String sanitizedTitle = tokens[2];
 
-		String cacheKey = "page-article-" + id;
+		String cacheKey = "page-article-" + sanitizedTitle;
 		String output = null;
 		Cache cache = CacheSingleton.getInstance().getCache();
 		if (cache.containsKey(cacheKey)) {
 			output = (String) cache.get(cacheKey);
 		} else {
 			ArticleManager articleManager = ArticleManager.getInstance();
-			Article post = articleManager.findByPrimaryKey(id);
+			Article post = articleManager.findBySanitizedTitle(sanitizedTitle);
 			if (null == post) {
 				sendErrorResponse(resp, HttpServletResponse.SC_NOT_FOUND);
 				return;

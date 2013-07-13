@@ -10,12 +10,12 @@ public class WebUtils {
 		return singleton;
 	}
 	
+	/**
+	 * @deprecated
+	 * @param url String
+	 * @return String
+	 */
 	public String sanitizeURL(String url) {
-		if(url == null)
-			return null;
-		url = url.toLowerCase();
-		url = url.replaceAll("[^a-z0-9\\s]", "");
-		url = url.replaceAll("\\s+", "-");
-		return url;
+		return StringUtils.sanitize(url);
 	}
 }

@@ -1,13 +1,20 @@
-#parse("header.vm")
+#parse( "header.vm" )
 
 <h2>Articles by date</h2>
 
-#foreach($archive in $archives)
+#foreach( $archive in $archiveStats )
 	<ul class="archive-links">
-	<strong>$archive.month / $archive.year</strong>
-	#foreach($article in $archive.articles)
-		<li class="icon_page"><a href="/article/$webUtils.sanitizeURL($article.title)/$article.key.id">$!article.title</a></li>
-	#end
+		#if( $archive.count > 0 )
+		<li>
+			<strong>$archive.year - $archive.month</strong> ($archive.count articles)
+			<ul>
+			#foreach( $article in $archive.articles )
+				<li class="icon_page"><a href="$urlFactory.createPostUrl( $article )">$!article.title</a></li>
+			#end
+			</ul>
+		</li>
+		#end
 	</ul>
 #end
-#parse("footer.vm")
+
+#parse( "footer.vm" )

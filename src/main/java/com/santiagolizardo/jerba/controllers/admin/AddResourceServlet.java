@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.jdo.PersistenceManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.santiagolizardo.jerba.controllers.BaseServlet;
 import com.santiagolizardo.jerba.model.PMF;
 import com.santiagolizardo.jerba.model.Resource;
-
 import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
@@ -44,7 +44,10 @@ public class AddResourceServlet extends BaseServlet {
 		resource.setContentType(info.getContentType());
 		resource.setFileName(info.getFilename());
 		resource.setSize(info.getSize());
-		PMF.save(resource);
+
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		pm.makePersistent(pm);
+		pm.close();
 
 		resp.sendRedirect("/admin/resource/");
 	}

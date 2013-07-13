@@ -5,7 +5,6 @@
 <h2>Contact information</h2>
 
 <form class="contact-form" action="/contact" method="post">
-<input type="hidden" name="action" value="contact" />
 
 <p>
 <label for="fromName">Your name</label>
@@ -33,7 +32,7 @@ $htmlCaptcha
 </p>
 
 <p>
-<input type="submit" value="Send message" />
+	<button type="submit">Send</button>
 </p>
 
 </form>

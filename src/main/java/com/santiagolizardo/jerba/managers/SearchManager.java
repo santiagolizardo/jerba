@@ -69,6 +69,8 @@ public class SearchManager {
 			SearchResult result = new SearchResult();
 			result.setId(doc.getOnlyField("id").getNumber().longValue());
 			result.setTitle(doc.getOnlyField("title").getText());
+			result.setSanitizedTitle(doc.getOnlyField("sanitizedTitle")
+					.getText());
 			result.setDescription(doc.getOnlyField("description").getText());
 			result.setKeywords(doc.getOnlyField("keywords").getText());
 			result.setContent(doc.getOnlyField("content").getHTML());
@@ -95,6 +97,9 @@ public class SearchManager {
 				.addField(
 						Field.newBuilder().setName("title")
 								.setText(article.getTitle()))
+				.addField(
+						Field.newBuilder().setName("sanitizedTitle")
+								.setText(article.getSanitizedTitle()))
 				.addField(
 						Field.newBuilder().setName("description")
 								.setText(article.getDescription()))

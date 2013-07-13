@@ -1,6 +1,6 @@
 
 <form action="/search" method="get">
 	<label for="searchQuery">Search</label>
-	<input type="text" name="query" id="searchQuery" value="" />
-	<input type="submit" value="Search" />
+	<input type="search" name="query" id="searchQuery" value="" required="required" />
+	<button type="submit">Search</button>
 </form>

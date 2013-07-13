@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<datastore-indexes autoGenerate="true">
+
+	<datastore-index kind="ArchiveStats" ancestor="false"
+		source="manual">
+		<property name="year" direction="desc" />
+		<property name="month" direction="desc" />
+	</datastore-index>
+
+	<datastore-index kind="Article" ancestor="false"
+		source="auto">
+		<property name="parent" direction="asc" />
+		<property name="type" direction="asc" />
+		<property name="position" direction="asc" />
+	</datastore-index>
+
+</datastore-indexes>

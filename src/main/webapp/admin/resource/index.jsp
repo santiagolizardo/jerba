@@ -2,8 +2,12 @@
 <%@page import="com.santiagolizardo.jerba.managers.ResourceManager"%>
 <%@page import="com.santiagolizardo.jerba.model.Resource"%>
 <%@page import="java.util.List"%>
+<%@page import="com.santiagolizardo.jerba.model.PMF"%>
+<%@page import="javax.jdo.PersistenceManager"%>
 <%
-List<Resource> resources = ResourceManager.findAll();
+PersistenceManager pm = PMF.get().getPersistenceManager();
+List<Resource> resources = new ResourceManager(pm).findAll();
+pm.close();
 %>
 
 <%@ include file="../includes/header.jsp" %>

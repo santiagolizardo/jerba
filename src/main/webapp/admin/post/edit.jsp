@@ -27,6 +27,9 @@ window.onload = function() {
 <label for="title">Title</label>
 <input type="text" name="title" id="title" value="<%= article.getTitle() %>" />
 
+<label for="sanitizedTitle">Sanitized title</label>
+<input type="text" name="sanitizedTitle" id="sanitizedTitle" value="<%= article.getSanitizedTitle() %>" />
+
 <label for="keywords">Keywords</label>
 <input type="text" name="keywords" id="keywords" value="<%= article.getKeywords() %>" />
 

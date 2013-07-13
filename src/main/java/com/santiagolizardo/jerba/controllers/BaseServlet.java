@@ -1,8 +1,6 @@
 package com.santiagolizardo.jerba.controllers;
 
-import java.io.IOException;
 import java.io.StringWriter;
-import java.lang.reflect.Method;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -10,18 +8,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.santiagolizardo.jerba.managers.ArticleManager;
-import com.santiagolizardo.jerba.managers.ConfigManager;
-import com.santiagolizardo.jerba.model.ArticleType;
-import com.santiagolizardo.jerba.utilities.UrlFactory;
-import com.santiagolizardo.jerba.utilities.WebUtils;
-import com.santiagolizardo.jerba.utilities.templates.DatastoreResourceLoader;
-import com.santiagolizardo.jerba.utilities.templates.TemplateTools;
-
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.tools.generic.EscapeTool;
+
+import com.santiagolizardo.jerba.managers.ArticleManager;
+import com.santiagolizardo.jerba.managers.ConfigManager;
+import com.santiagolizardo.jerba.model.ArticleType;
+import com.santiagolizardo.jerba.utilities.HtmlUtils;
+import com.santiagolizardo.jerba.utilities.UrlFactory;
+import com.santiagolizardo.jerba.utilities.WebUtils;
+import com.santiagolizardo.jerba.utilities.templates.DatastoreResourceLoader;
 
 public abstract class BaseServlet extends HttpServlet {
 
@@ -52,22 +50,6 @@ public abstract class BaseServlet extends HttpServlet {
 		}
 	}
 
-	protected final void invokeAction(HttpServletRequest req,
-			HttpServletResponse resp) throws ServletException, IOException {
-		String action = req.getParameter("action");
-		if (action == null)
-			action = "Default";
-
-		try {
-			Method method = getClass().getMethod("do" + action,
-					HttpServletRequest.class, HttpServletResponse.class);
-			method.invoke(this, req, resp);
-		} catch (Exception e) {
-			LOGGER.severe(e.getMessage());
-			resp.sendError(500);
-		}
-	}
-
 	protected VelocityContext prepareContext(HttpServletRequest request) {
 		ConfigManager configManager = ConfigManager.getInstance();
 
@@ -78,7 +60,7 @@ public abstract class BaseServlet extends HttpServlet {
 		context.put("webUtils", WebUtils.getInstance());
 		context.put("serverName", serverName);
 		context.put("esc", new EscapeTool());
-		context.put("tools", new TemplateTools());
+		context.put("tools", new HtmlUtils());
 		context.put("pages", ArticleManager.getInstance().findByType(ArticleType.Permanent));
 
 		String metaTitle = configManager.getValue(ConfigManager.META_TITLE);

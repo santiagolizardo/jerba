@@ -6,6 +6,7 @@ public class SearchResult {
 
 	private long id;
 	private String title;
+	private String sanitizedTitle;
 	private String description;
 	private String content;
 	private String keywords;
@@ -25,6 +26,14 @@ public class SearchResult {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getSanitizedTitle() {
+		return sanitizedTitle;
+	}
+
+	public void setSanitizedTitle(String sanitizedTitle) {
+		this.sanitizedTitle = sanitizedTitle;
 	}
 
 	public String getDescription() {

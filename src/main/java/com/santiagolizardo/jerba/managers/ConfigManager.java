@@ -44,18 +44,17 @@ public class ConfigManager {
 		return configManager;
 	}
 
-	private ConfigManager() {
+	private PersistenceManager pm;
 
+	public ConfigManager(PersistenceManager pm) {
+		this.pm = pm;
+	}
+
+	public ConfigManager() {
+		this(PMF.get().getPersistenceManager());
 	}
 
 	public ConfigValue findByName(String name) {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-		ConfigValue configValue = findByName(pm, name);
-		pm.close();
-		return configValue;
-	}
-
-	public ConfigValue findByName(PersistenceManager pm, String name) {
 		Query query = pm.newQuery(ConfigValue.class);
 		query.setFilter("name == nameParam");
 		query.declareParameters("String nameParam");
@@ -72,7 +71,6 @@ public class ConfigManager {
 	}
 
 	public boolean valueExists(String name) {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
 		Query query = pm.newQuery(ConfigValue.class);
 		query.setFilter("name == nameParam");
 		query.declareParameters("String nameParam");
@@ -80,7 +78,6 @@ public class ConfigManager {
 		List<ConfigValue> results = (List<ConfigValue>) query.execute(name);
 		results.size();
 		query.closeAll();
-		pm.close();
 
 		return results.size() > 0;
 	}
@@ -90,14 +87,10 @@ public class ConfigManager {
 	}
 
 	public List<ConfigValue> findAll() {
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-
 		Query q = pm.newQuery(ConfigValue.class);
 		List<ConfigValue> templates = (List<ConfigValue>) q.execute();
 		templates.size();
 		q.closeAll();
-
-		pm.close();
 
 		return templates;
 	}

@@ -103,6 +103,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<servlet-name>UpdateTemplateServlet</servlet-name>
 		<servlet-class>com.santiagolizardo.jerba.controllers.admin.UpdateTemplateServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>MigrationServlet</servlet-name>
+		<servlet-class>com.santiagolizardo.jerba.controllers.MigrationServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>ArticleServlet</servlet-name>
 		<url-pattern>/Article</url-pattern>
@@ -202,6 +206,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	<servlet-mapping>
 		<servlet-name>ContactServlet</servlet-name>
 		<url-pattern>/contact</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MigrationServlet</servlet-name>
+		<url-pattern>/migrate</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

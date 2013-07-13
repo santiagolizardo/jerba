@@ -1,8 +1,12 @@
 <%@page import="com.santiagolizardo.jerba.managers.TemplateManager"%>
 <%@page import="com.santiagolizardo.jerba.model.Template"%>
 <%@page import="java.util.List"%>
+<%@page import="com.santiagolizardo.jerba.model.PMF"%>
+<%@page import="javax.jdo.PersistenceManager"%>
 <%
-List<Template> templates = TemplateManager.getInstance().findAll();
+PersistenceManager pm = PMF.get().getPersistenceManager();
+List<Template> templates = new TemplateManager(pm).findAll();
+pm.close();
 %>
 
 <%@ include file="../includes/header.jsp" %>

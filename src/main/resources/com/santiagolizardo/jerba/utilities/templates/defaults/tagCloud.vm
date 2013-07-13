@@ -1,0 +1,9 @@
+#if( $tags )
+	<h3>Tags</h3>
+	
+	<ul class="tag_cloud">
+		#foreach( $tag in $tags )
+			<li class="icon_tag"><a href="$urlFactory.createSearchUrl( $tag.name )">$tag.name</a></li> 
+		#end
+	</ul>
+#end

@@ -1,11 +1,11 @@
-package com.santiagolizardo.jerba.utilities.templates;
+package com.santiagolizardo.jerba.utilities;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class TemplateTools {
+public class HtmlUtils {
 
-	public String firstParagraph(String string) {
+	public String extractFirstParagraph(String string) {
 		Pattern pattern = Pattern.compile("<p>(.*?)</p>",
 				Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
 		Matcher matcher = pattern.matcher(string);

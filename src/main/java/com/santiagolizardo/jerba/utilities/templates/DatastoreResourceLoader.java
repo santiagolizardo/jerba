@@ -5,8 +5,10 @@ import java.io.InputStream;
 import java.util.logging.Logger;
 
 import javax.cache.Cache;
+import javax.jdo.PersistenceManager;
 
 import com.santiagolizardo.jerba.managers.TemplateManager;
+import com.santiagolizardo.jerba.model.PMF;
 import com.santiagolizardo.jerba.model.Template;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
 
@@ -40,8 +42,11 @@ public class DatastoreResourceLoader extends ResourceLoader {
 			contentBytes = (byte[]) cache.get(id);
 		} else {
 			try {
-				Template tpl = TemplateManager.getInstance().findById(id);
+				PersistenceManager pm = PMF.get().getPersistenceManager();
+				Template tpl = new TemplateManager(pm).findById(id);
 				contentBytes = tpl.getContent().getValue().getBytes("UTF-8");
+				pm.close();
+
 				cache.put(id, contentBytes);
 			} catch (Exception e) {
 				LOGGER.severe(e.getMessage());

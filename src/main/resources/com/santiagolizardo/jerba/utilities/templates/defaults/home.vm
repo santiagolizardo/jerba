@@ -1,12 +1,12 @@
 #parse("header.vm")
 
-#foreach($post in $articles)
+#foreach( $post in $articles )
 <div>
-	<h2><a href="$urlFactory.createPostUrl($post)">$!post.title</a></h2>
+	<h2><a href="$urlFactory.createPostUrl( $post )">$!post.title</a></h2>
 	<time datetime="$post.publicationDate">$post.publicationDate</time>
 	
-	<p class="icon_comment"><a href="$urlFactory.createPostUrl($post)"></a></p>
-	<p>$tools.firstParagraph($post.content.value)</p>
+	<p class="icon_comment"><a href="$urlFactory.createPostUrl( $post )"></a></p>
+	<p>$tools.extractFirstParagraph( $post.content.value )</p>
 </div>
 #end
 

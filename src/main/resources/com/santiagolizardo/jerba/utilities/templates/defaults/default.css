@@ -7,7 +7,7 @@ body {
 
 table { width: 100%; }
 
-a, a:hover, a:active, a:link, a:active, a:visited {
+a, a:link, a:hover, a:active, a:visited {
 	color: blue;
 }
 
@@ -41,6 +41,24 @@ p.icon_tag
 	font-size: small;
 }
 
+ul.tag_cloud
+{
+	padding: 0px;
+}
+	li.icon_tag
+	{
+		background: url('/images/tag_purple.png') 2px 2px no-repeat;
+		background-color: #fed;
+		padding-left: 20px;
+		display: inline-block;
+	}
+		li.icon_tag a
+		{
+			padding: 2px;
+			color: #E23E46;
+			text-decoration: none;
+		}
+
 ul.archive-links, ul.sitemap-links, ul.main-links, ul.footer-links
 {
 	margin: 0px;
@@ -56,7 +74,7 @@ ul.footer-links > li
 	display: inline;
 	margin-right: 30px;
 }
-ul.archive-links > li, ul.sitemap-links li, ul.main-links > li, ul.footer-links > li
+ul.archive-links > li > ul > li, li, ul.sitemap-links li, ul.main-links > li, ul.footer-links > li
 {
 	padding-left: 20px;
 	list-style-type: none;

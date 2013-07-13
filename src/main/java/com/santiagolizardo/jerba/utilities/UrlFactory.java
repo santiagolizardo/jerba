@@ -1,5 +1,8 @@
 package com.santiagolizardo.jerba.utilities;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import com.santiagolizardo.jerba.model.Article;
 import com.santiagolizardo.jerba.model.Resource;
 import com.santiagolizardo.jerba.model.SearchResult;
@@ -16,10 +19,17 @@ public class UrlFactory {
 		return singleton;
 	}
 
-	private WebUtils webUtils;
-
 	private UrlFactory() {
-		webUtils = WebUtils.getInstance();
+	}
+
+	public String createSearchUrl(String query) {
+		try {
+			return String.format("/search?query=%s",
+					URLEncoder.encode(query, "UTF-8"));
+
+		} catch (UnsupportedEncodingException uee) {
+			return String.format("/search?query=%s", URLEncoder.encode(query));
+		}
 	}
 
 	/**
@@ -38,8 +48,7 @@ public class UrlFactory {
 	 * @return
 	 */
 	public String createPostUrl(Article article) {
-		return String.format("/article/%s/%d", webUtils.sanitizeURL(article
-				.getTitle()), article.getKey().getId());
+		return String.format("/article/%s", article.getSanitizedTitle());
 	}
 
 	/**
@@ -48,9 +57,7 @@ public class UrlFactory {
 	 * @return
 	 */
 	public String createPostUrl(SearchResult searchResult) {
-		return String.format("/article/%s/%d",
-				webUtils.sanitizeURL(searchResult.getTitle()),
-				searchResult.getId());
+		return String.format("/article/%s", searchResult.getSanitizedTitle());
 	}
 
 	public String createPageUrl(String serverName, Article page) {
@@ -58,13 +65,12 @@ public class UrlFactory {
 	}
 
 	public String createPageUrl(Article page) {
-		return String.format("/page/%s/%d",
-				webUtils.sanitizeURL(page.getTitle()), page.getKey().getId());
+		return String.format("/page/%s", page.getSanitizedTitle());
 	}
 
 	public String createResourceUrl(Resource resource) {
 		String extension = resource.getFilenameExtension();
-		return String.format("/r/%s_%d%s", webUtils.sanitizeURL(resource
+		return String.format("/r/%s_%d%s", StringUtils.sanitize(resource
 				.getTitle()), resource.getKey().getId(), extension == null ? ""
 				: "." + extension);
 	}
