@@ -46,7 +46,7 @@ public class AddResourceServlet extends BaseServlet {
 		resource.setSize(info.getSize());
 
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		pm.makePersistent(pm);
+		pm.makePersistent(resource);
 		pm.close();
 
 		resp.sendRedirect("/admin/resource/");

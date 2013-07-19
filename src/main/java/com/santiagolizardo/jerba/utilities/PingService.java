@@ -27,9 +27,7 @@ public class PingService {
 				+ configManager.getValue(ConfigManager.WEBSITE_TITLE_SUFFIX);
 		String blogURL = configManager.getValue(ConfigManager.WEBSITE_URL);
 		String feedURL = blogURL + "/articles.xml";
-		String articleURL = String.format("%s/article/%s/%d", blogURL, WebUtils
-				.getInstance().sanitizeURL(article.getTitle()), article
-				.getKey().getId());
+		String articleURL = blogURL + UrlFactory.getInstance().createPostUrl(article);
 
 		StringBuilder sb = new StringBuilder();
 		sb.append("<?xml version=\"1.0\"?>\n");

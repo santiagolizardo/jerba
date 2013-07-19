@@ -1,6 +1,5 @@
 package com.santiagolizardo.jerba.utilities;
 
-
 public class StringUtils {
 
 	public static final String decodeHtmlEntities(String html) {
@@ -8,7 +7,12 @@ public class StringUtils {
 	}
 
 	public static String sanitize(String text) {
+		if (null == text)
+			return "";
+
+		text = text.trim();
 		text = text.toLowerCase();
+		text = text.replaceAll("[^a-z0-9- ]", "");
 		text = text.replaceAll("\\s+", "-");
 		return text;
 	}
