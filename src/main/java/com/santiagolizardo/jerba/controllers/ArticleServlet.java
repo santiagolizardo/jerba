@@ -7,13 +7,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.velocity.VelocityContext;
+
 import com.santiagolizardo.jerba.managers.ArticleManager;
 import com.santiagolizardo.jerba.managers.ConfigManager;
 import com.santiagolizardo.jerba.model.Article;
 import com.santiagolizardo.jerba.model.ArticleType;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
-
-import org.apache.velocity.VelocityContext;
 
 public class ArticleServlet extends BaseServlet {
 
@@ -23,10 +23,11 @@ public class ArticleServlet extends BaseServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String[] tokens = req.getRequestURI().split("/");
-		if (3 < tokens.length) {
+		if (tokens.length < 3) {
 			resp.sendError(404);
 			return;
 		}
+
 		String sanitizedTitle = tokens[2];
 
 		String cacheKey = "page-article-" + sanitizedTitle;

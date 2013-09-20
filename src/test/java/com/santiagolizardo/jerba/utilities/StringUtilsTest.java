@@ -1,4 +1,4 @@
-package com.santiagolizardo.jerba.model;
+package com.santiagolizardo.jerba.utilities;
 
 import java.util.Arrays;
 import java.util.Collection;

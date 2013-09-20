@@ -1,4 +1,4 @@
-package com.santiagolizardo.jerba.model;
+package com.santiagolizardo.jerba.utilities;
 
 import javax.servlet.http.HttpServletRequest;
 
