@@ -76,10 +76,10 @@ public class ConfigManager {
 		query.declareParameters("String nameParam");
 
 		List<ConfigValue> results = (List<ConfigValue>) query.execute(name);
-		results.size();
+		boolean exists = ( results.size() > 0 );
 		query.closeAll();
 
-		return results.size() > 0;
+		return exists;
 	}
 
 	public String getValue(String name) {
@@ -88,10 +88,6 @@ public class ConfigManager {
 
 	public List<ConfigValue> findAll() {
 		Query q = pm.newQuery(ConfigValue.class);
-		List<ConfigValue> templates = (List<ConfigValue>) q.execute();
-		templates.size();
-		q.closeAll();
-
-		return templates;
+		return (List<ConfigValue>) q.execute();
 	}
 }

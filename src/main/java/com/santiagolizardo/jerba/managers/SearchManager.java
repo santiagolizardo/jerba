@@ -20,10 +20,6 @@ public class SearchManager {
 
 	private static SearchManager singleton;
 
-	/**
-	 * 
-	 * @return
-	 */
 	public static final SearchManager getInstance() {
 		if (null == singleton) {
 			singleton = new SearchManager();
@@ -35,33 +31,18 @@ public class SearchManager {
 
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public Index getIndex() {
 		IndexSpec indexSpec = IndexSpec.newBuilder().setName(INDEX_NAME)
 				.build();
 		return SearchServiceFactory.getSearchService().getIndex(indexSpec);
 	}
 
-	/**
-	 * s
-	 * 
-	 * @param query
-	 * @return
-	 */
 	public List<SearchResult> search(String query) {
 		Results<ScoredDocument> results = getIndex().search(query);
 		List<SearchResult> searchResults = prepareSearchResults(results);
 		return searchResults;
 	}
 
-	/**
-	 * 
-	 * @param docs
-	 * @return
-	 */
 	protected List<SearchResult> prepareSearchResults(
 			Results<ScoredDocument> docs) {
 		List<SearchResult> results = new ArrayList<SearchResult>();

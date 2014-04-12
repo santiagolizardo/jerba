@@ -33,10 +33,6 @@ public class ArchiveStatsManager {
 	public List<ArchiveStats> findAll() {
 		Query q = pm.newQuery(ArchiveStats.class);
 		q.setOrdering("year DESC, month DESC");
-		List<ArchiveStats> stats = (List<ArchiveStats>) q.execute();
-		stats.size();
-		q.closeAll();
-
-		return stats;
+		return (List<ArchiveStats>) q.execute();
 	}
 }

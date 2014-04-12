@@ -14,12 +14,11 @@ pm.close();
 <%@include file="../includes/header.jsp"%>
 
 <form action="/UpdateTemplate" method="post">
-<input type="hidden" name="id" value="<%= tpl.getIdentifier() %>" />
 
 <legend>Edit template</legend>
 
-<label for="newId">Identifier</label>
-<input type="text" name="newId" id="newId" value="<%= tpl.getIdentifier() %>" />
+<label for="identifier">Identifier</label>
+<input type="text" name="identifier" id="identifier" value="<%= tpl.getIdentifier() %>" />
 
 <label for="contentTypeRich"><input type="radio" name="contentType" id="contentTypeRich" value="rich" /> Rich</label>
 <label for="contentTypePlain"><input type="radio" name="contentType" id="contentTypePlain" value="plain" checked="checked" /> Plain</label>

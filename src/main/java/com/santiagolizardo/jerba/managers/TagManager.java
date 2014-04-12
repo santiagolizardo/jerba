@@ -30,11 +30,7 @@ public class TagManager {
 		Query q = pm.newQuery(Tag.class);
 		q.setOrdering("count DESC");
 		q.setRange(0, limit);
-		List<Tag> stats = (List<Tag>) q.execute();
-		stats.size();
-		q.closeAll();
-
-		return stats;
+		return (List<Tag>) q.execute();
 	}
 
 	public Tag findByName(String name) {

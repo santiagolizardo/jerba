@@ -22,10 +22,6 @@ public class ResourceManager {
 
 	public List<Resource> findAll() {
 		Query q = pm.newQuery(Resource.class);
-		List<Resource> resources = (List<Resource>) q.execute();
-		resources.size();
-		q.closeAll();
-
-		return resources;
+		return (List<Resource>) q.execute();
 	}
 }

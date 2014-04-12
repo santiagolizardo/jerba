@@ -9,8 +9,8 @@
 
 	<legend>Add template</legend>
 
-		<label for="id">Identifier</label>
-		<input type="text" name="id" id="id" required="required" />
+		<label for="identifier">Identifier</label>
+		<input type="text" name="identifier" id="identifier" required="required" />
 	
 		<label for="contentTypeRich" class="checkbox"><input type="radio" name="contentType" id="contentTypeRich" value="rich" /> Rich</label>
 		<label for="contentTypePlain" class="checkbox"><input type="radio" name="contentType" id="contentTypePlain" value="plain" checked="checked" /> Plain</label>

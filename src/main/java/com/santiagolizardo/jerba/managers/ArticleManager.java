@@ -52,7 +52,6 @@ public class ArticleManager {
 			if (articles.size() == 1) {
 				article = articles.get(0);
 			}
-			// article = pm.detachCopy(article);
 		} catch (JDOObjectNotFoundException e) {
 			LOGGER.warning(e.getMessage());
 		}
@@ -78,7 +77,6 @@ public class ArticleManager {
 			query.declareImports("import java.util.Date");
 			query.declareParameters("Date fromDateParam, Date toDateParam");
 			articles = (List<Article>) query.execute(fromDate, toDate);
-			// article = pm.detachCopy(article);
 		} catch (JDOObjectNotFoundException e) {
 			LOGGER.warning(e.getMessage());
 		}
@@ -88,11 +86,9 @@ public class ArticleManager {
 
 	public Article findByPrimaryKey(Long id) {
 		Article article = null;
-		Key key = KeyFactory.createKey(Article.class.getSimpleName(), id);
 
 		try {
-			article = pm.getObjectById(Article.class, key);
-			article = pm.detachCopy(article);
+			article = pm.getObjectById(Article.class, id);
 		} catch (JDOObjectNotFoundException e) {
 			LOGGER.warning(e.getMessage());
 		}
@@ -102,11 +98,7 @@ public class ArticleManager {
 
 	public List<Article> findAll() {
 		Query q = pm.newQuery(Article.class);
-		List<Article> posts = (List<Article>) q.execute();
-		posts.size();
-		q.closeAll();
-
-		return posts;
+		return (List<Article>) q.execute();
 	}
 
 	public List<Article> findByType(ArticleType type) {
@@ -131,8 +123,6 @@ public class ArticleManager {
 				a.getChildren().addAll(children);
 			}
 		}
-		posts.size();
-		q.closeAll();
 
 		return posts;
 	}
@@ -141,10 +131,6 @@ public class ArticleManager {
 		Query q = pm.newQuery(Article.class);
 		q.setFilter("parent == :parent");
 		q.setOrdering("publicationDate DESC");
-		List<Article> posts = (List<Article>) q.execute(key);
-		posts.size();
-		q.closeAll();
-
-		return posts;
+		return (List<Article>) q.execute(key);
 	}
 }

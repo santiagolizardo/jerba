@@ -17,3 +17,5 @@ temp-testng-customsuite.xml
 test-output
 .externalToolBuilders
 *~
+datanucleus.log
+nbactions.xml

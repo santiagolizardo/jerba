@@ -28,11 +28,9 @@ public class TemplateManager {
 
 	public Template findByPrimaryKey(String id) {
 		Template template = null;
-		Key key = KeyFactory.createKey(Template.class.getSimpleName(), id);
 
 		try {
-			template = pm.getObjectById(Template.class, key);
-			// template = pm.detachCopy(template);
+			template = pm.getObjectById(Template.class, id);
 		} catch (JDOObjectNotFoundException e) {
 			LOGGER.warning(e.getMessage());
 		}
@@ -71,10 +69,6 @@ public class TemplateManager {
 
 	public List<Template> findAll() {
 		Query q = pm.newQuery(Template.class);
-		List<Template> templates = (List<Template>) q.execute();
-		templates.size();
-		q.closeAll();
-
-		return templates;
+		return (List<Template>) q.execute();
 	}
 }

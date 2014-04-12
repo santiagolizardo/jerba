@@ -35,19 +35,23 @@ public class UpdateArticleServlet extends BaseServlet {
 		boolean visible = input.getBoolean("visible", true);
 
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Article post = new ArticleManager(pm).findByPrimaryKey(id);
-		if (null != post) {
-			post.setType(type.equals("P") ? ArticleType.Permanent
+		Article article = new ArticleManager(pm).findByPrimaryKey(id);
+		if (null == article) {
+			logger.severe("Article not found: " + id);
+		} else {
+			pm.currentTransaction().begin();
+			article.setType(type.equals("P") ? ArticleType.Permanent
 					: ArticleType.Ephemeral);
-			post.setTitle(title);
-			post.setSanitizedTitle(sanitizedTitle);
-			post.setKeywords(keywords);
-			post.setDescription(description);
-			post.setContent(content);
-			post.setPosition(order);
-			post.setVisible(visible);
-			post.setModificationDate(new Date());
-			pm.makePersistent(post);
+			article.setTitle(title);
+			article.setSanitizedTitle(sanitizedTitle);
+			article.setKeywords(keywords);
+			article.setDescription(description);
+			article.setContent(content);
+			article.setPosition(order);
+			article.setVisible(visible);
+			article.setModificationDate(new Date());
+			pm.makePersistent( article );
+			pm.currentTransaction().commit();
 		}
 		pm.close();
 

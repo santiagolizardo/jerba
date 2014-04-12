@@ -25,7 +25,7 @@ public abstract class BaseServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 2570210304300019515L;
 
-	private static final Logger LOGGER = Logger.getLogger(BaseServlet.class
+	protected static final Logger logger = Logger.getLogger(BaseServlet.class
 			.getName());
 
 	private VelocityEngine ve;
@@ -46,7 +46,7 @@ public abstract class BaseServlet extends HttpServlet {
 		try {
 			ve.init();
 		} catch (Exception e) {
-			LOGGER.severe(e.getMessage());
+			logger.severe(e.getMessage());
 		}
 	}
 
@@ -94,7 +94,7 @@ public abstract class BaseServlet extends HttpServlet {
 			Template t = ve.getTemplate(name);
 			t.merge(context, writer);
 		} catch (Exception e) {
-			LOGGER.severe(e.getMessage());
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 		return writer.toString();
@@ -111,7 +111,7 @@ public abstract class BaseServlet extends HttpServlet {
 		try {
 			resp.getWriter().write(output);
 		} catch (Exception e) {
-			LOGGER.severe(e.getMessage());
+			logger.severe(e.getMessage());
 			e.printStackTrace();
 		}
 	}

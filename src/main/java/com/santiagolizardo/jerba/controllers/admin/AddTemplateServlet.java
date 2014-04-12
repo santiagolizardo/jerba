@@ -19,13 +19,13 @@ public class AddTemplateServlet extends BaseServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String id = req.getParameter("id");
+		String identifier = req.getParameter("identifier");
 		String content = req.getParameter("content");
 
-		if (id != null && content != null) {
+		if (identifier != null && content != null) {
 			Text text = new Text(content);
 			Template template = new Template();
-			template.setIdentifier(id);
+			template.setIdentifier(identifier);
 			template.setContent(text);
 
 			PersistenceManager pm = PMF.get().getPersistenceManager();
