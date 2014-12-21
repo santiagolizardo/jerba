@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jerba-config>
+	<redirections>
+		<!-- <redirection code="301" pattern="/old-url" url="/new-url" /> -->
+	</redirections>
+</jerba-config>

@@ -44,6 +44,7 @@ public class ContactServlet extends BaseServlet {
 
 		if (null == fromName || null == fromEmail || null == msgBody
 				|| null == challengeParam || null == responseParam) {
+			LOGGER.warning("Invalid/missing params");
 			sendErrorResponse(resp, HttpServletResponse.SC_NOT_FOUND);
 			return;
 		}

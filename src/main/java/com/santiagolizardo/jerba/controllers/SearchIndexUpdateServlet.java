@@ -15,7 +15,7 @@ import com.santiagolizardo.jerba.model.Article;
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Index;
 
-public class SearchIndexUpdateServlet extends HttpServlet {
+public class SearchIndexUpdateServlet extends BaseServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

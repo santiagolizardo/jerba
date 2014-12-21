@@ -18,7 +18,7 @@ public class SearchServlet extends BaseServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
+		
 		String query = req.getParameter("query");
 
 		List<SearchResult> searchResults = SearchManager.getInstance().search(

@@ -24,7 +24,7 @@ public class ArticleServlet extends BaseServlet {
 			throws ServletException, IOException {
 		String[] tokens = req.getRequestURI().split("/");
 		if (tokens.length < 3) {
-			resp.sendError(404);
+			sendErrorResponse(resp, HttpServletResponse.SC_NOT_FOUND);
 			return;
 		}
 

@@ -2,11 +2,14 @@ package com.santiagolizardo.jerba.controllers;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javax.servlet.ServletException;
+
 @SuppressWarnings("serial")
-public class ErrorServlet extends BaseServlet {
+public class ErrorServlet extends CommandServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
@@ -16,10 +19,9 @@ public class ErrorServlet extends BaseServlet {
 			try {
 				errorCode = Integer.parseInt(errorCodeString);
 			} catch (NumberFormatException e) {
-				// Ignore the exception.
 			}
 		}
 
-		sendErrorResponse(resp, errorCode);
+		command.sendErrorResponse(resp, errorCode);
 	}
 }
