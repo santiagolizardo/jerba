@@ -1,5 +1,7 @@
 # Jerba CMS
 
+[![Build Status](https://travis-ci.org/santiagolizardo/jerba.svg?branch=master)](https://travis-ci.org/santiagolizardo/jerba)
+
 Simple Content Management System written in Java and designed to be deployed in a Google App Engine server.
 
 ## Requirements
