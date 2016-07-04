@@ -8,13 +8,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.datastore.Text;
 import com.santiagolizardo.jerba.controllers.BaseServlet;
 import com.santiagolizardo.jerba.managers.ArticleManager;
 import com.santiagolizardo.jerba.model.Article;
 import com.santiagolizardo.jerba.model.ArticleType;
 import com.santiagolizardo.jerba.model.PMF;
 import com.santiagolizardo.jerba.utilities.RequestParam;
-import com.google.appengine.api.datastore.Text;
 
 public class UpdateArticleServlet extends BaseServlet {
 

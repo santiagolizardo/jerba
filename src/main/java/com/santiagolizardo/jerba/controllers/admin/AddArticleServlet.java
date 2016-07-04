@@ -19,7 +19,6 @@ import com.santiagolizardo.jerba.model.ArchiveStats;
 import com.santiagolizardo.jerba.model.Article;
 import com.santiagolizardo.jerba.model.ArticleType;
 import com.santiagolizardo.jerba.model.PMF;
-import com.santiagolizardo.jerba.model.Tag;
 import com.santiagolizardo.jerba.utilities.PingService;
 import com.santiagolizardo.jerba.utilities.RequestParam;
 import com.santiagolizardo.jerba.utilities.StringUtils;

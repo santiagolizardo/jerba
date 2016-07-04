@@ -2,17 +2,16 @@ package com.santiagolizardo.jerba.controllers.admin;
 
 import java.io.IOException;
 
-import com.santiagolizardo.jerba.managers.TemplateManager;
 import javax.jdo.PersistenceManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.datastore.Text;
 import com.santiagolizardo.jerba.controllers.BaseServlet;
+import com.santiagolizardo.jerba.managers.TemplateManager;
 import com.santiagolizardo.jerba.model.PMF;
 import com.santiagolizardo.jerba.model.Template;
-
-import com.google.appengine.api.datastore.Text;
 
 /**
  * Updates a template in the datastore.

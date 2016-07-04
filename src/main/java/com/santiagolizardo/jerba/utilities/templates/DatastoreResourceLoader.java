@@ -7,15 +7,15 @@ import java.util.logging.Logger;
 import javax.cache.Cache;
 import javax.jdo.PersistenceManager;
 
-import com.santiagolizardo.jerba.managers.TemplateManager;
-import com.santiagolizardo.jerba.model.PMF;
-import com.santiagolizardo.jerba.model.Template;
-import com.santiagolizardo.jerba.utilities.CacheSingleton;
-
 import org.apache.commons.collections.ExtendedProperties;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.resource.Resource;
 import org.apache.velocity.runtime.resource.loader.ResourceLoader;
+
+import com.santiagolizardo.jerba.managers.TemplateManager;
+import com.santiagolizardo.jerba.model.PMF;
+import com.santiagolizardo.jerba.model.Template;
+import com.santiagolizardo.jerba.utilities.CacheSingleton;
 
 public class DatastoreResourceLoader extends ResourceLoader {
 

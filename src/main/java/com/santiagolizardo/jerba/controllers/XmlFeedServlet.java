@@ -15,7 +15,6 @@ import com.santiagolizardo.jerba.model.Article;
 import com.santiagolizardo.jerba.model.ArticleType;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
 import com.santiagolizardo.jerba.utilities.UrlFactory;
-
 import com.sun.syndication.feed.synd.SyndContent;
 import com.sun.syndication.feed.synd.SyndContentImpl;
 import com.sun.syndication.feed.synd.SyndEntry;

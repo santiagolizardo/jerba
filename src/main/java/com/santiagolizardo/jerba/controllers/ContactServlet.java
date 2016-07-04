@@ -14,13 +14,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.velocity.VelocityContext;
+
 import com.santiagolizardo.jerba.managers.ConfigManager;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
+
 import net.tanesha.recaptcha.ReCaptcha;
 import net.tanesha.recaptcha.ReCaptchaFactory;
 import net.tanesha.recaptcha.ReCaptchaResponse;
-
-import org.apache.velocity.VelocityContext;
 
 @SuppressWarnings("serial")
 public class ContactServlet extends BaseServlet {

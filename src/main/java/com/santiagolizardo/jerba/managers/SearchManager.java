@@ -3,9 +3,6 @@ package com.santiagolizardo.jerba.managers;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.santiagolizardo.jerba.model.Article;
-import com.santiagolizardo.jerba.model.SearchResult;
-
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 import com.google.appengine.api.search.Index;
@@ -13,6 +10,8 @@ import com.google.appengine.api.search.IndexSpec;
 import com.google.appengine.api.search.Results;
 import com.google.appengine.api.search.ScoredDocument;
 import com.google.appengine.api.search.SearchServiceFactory;
+import com.santiagolizardo.jerba.model.Article;
+import com.santiagolizardo.jerba.model.SearchResult;
 
 public class SearchManager {
 

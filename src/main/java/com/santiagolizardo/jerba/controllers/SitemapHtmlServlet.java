@@ -6,10 +6,10 @@ import javax.cache.Cache;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.velocity.VelocityContext;
+
 import com.santiagolizardo.jerba.managers.ConfigManager;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
-
-import org.apache.velocity.VelocityContext;
 
 @SuppressWarnings("serial")
 public class SitemapHtmlServlet extends BaseServlet {
