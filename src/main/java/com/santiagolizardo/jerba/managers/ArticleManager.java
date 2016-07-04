@@ -59,7 +59,7 @@ public class ArticleManager {
 	}
 
 	public List<Article> findByYearMonth(int year, int month) {
-		List<Article> articles = new ArrayList<Article>();
+		List<Article> articles = new ArrayList<>();
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.YEAR, year);

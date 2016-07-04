@@ -18,7 +18,6 @@ import com.santiagolizardo.jerba.model.PMF;
 import com.santiagolizardo.jerba.model.Tag;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
 
-@SuppressWarnings("serial")
 public class IndexServlet extends BaseServlet {
 
 	private static final int NUM_ARTICLES_INDEX = 6;

@@ -18,7 +18,6 @@ import com.santiagolizardo.jerba.model.Article;
 import com.santiagolizardo.jerba.model.PMF;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
 
-@SuppressWarnings("serial")
 public class ArchiveServlet extends BaseServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)

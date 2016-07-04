@@ -15,7 +15,6 @@ import com.santiagolizardo.jerba.model.ArticleType;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
 import com.santiagolizardo.jerba.utilities.UrlFactory;
 
-@SuppressWarnings("serial")
 public class SitemapXmlServlet extends BaseServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)

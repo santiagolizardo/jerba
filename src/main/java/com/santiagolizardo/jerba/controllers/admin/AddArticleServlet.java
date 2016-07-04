@@ -2,6 +2,7 @@ package com.santiagolizardo.jerba.controllers.admin;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -27,8 +28,6 @@ public class AddArticleServlet extends BaseServlet {
 
 	private static final Logger LOGGER = Logger
 			.getLogger(AddArticleServlet.class.getName());
-
-	private static final long serialVersionUID = 6465741042405945951L;
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)

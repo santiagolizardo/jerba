@@ -17,8 +17,6 @@ import com.santiagolizardo.jerba.model.Resource;
 
 public class ResourceServlet extends BaseServlet {
 
-	private static final long serialVersionUID = 6465741042405945951L;
-
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory
 			.getBlobstoreService();
 

@@ -33,7 +33,7 @@ public class ArchiveStats {
 
 	public ArchiveStats() {
 		count = 0;
-		articles = new ArrayList<Article>();
+		articles = new ArrayList<>();
 	}
 	
 	public ArchiveStats(int year, int month) {

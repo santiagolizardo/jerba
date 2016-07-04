@@ -18,8 +18,6 @@ import com.santiagolizardo.jerba.model.Template;
  */
 public class UpdateTemplateServlet extends BaseServlet {
 
-	private static final long serialVersionUID = 6465741042405945951L;
-
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

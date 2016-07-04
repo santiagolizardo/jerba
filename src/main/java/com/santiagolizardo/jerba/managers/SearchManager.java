@@ -44,7 +44,7 @@ public class SearchManager {
 
 	protected List<SearchResult> prepareSearchResults(
 			Results<ScoredDocument> docs) {
-		List<SearchResult> results = new ArrayList<SearchResult>();
+		List<SearchResult> results = new ArrayList<>();
 		for (ScoredDocument doc : docs) {
 			SearchResult result = new SearchResult();
 			result.setId(doc.getOnlyField("id").getNumber().longValue());

@@ -44,7 +44,7 @@ public class FrontControllerFilter implements Filter {
 	}
 
 	private void initRedirections( FilterConfig filterConfig ) {
-		redirections = new LinkedHashMap<String, String>();
+		redirections = new LinkedHashMap<>();
 
 		InputStream is = filterConfig.getServletContext().getResourceAsStream(
 				"/WEB-INF/jerba-config.xml");
@@ -73,7 +73,6 @@ public class FrontControllerFilter implements Filter {
 		routes = new LinkedHashMap<String, Class<? extends BaseServlet>>();
 
 		// Public pages
-		routes.put("/migrate", MigrationServlet.class);
 		routes.put("/contact", ContactServlet.class);
 		routes.put("/search", SearchServlet.class);
 		routes.put("/search/index-update", SearchIndexUpdateServlet.class);

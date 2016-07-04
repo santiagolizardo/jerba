@@ -61,7 +61,7 @@ public class Article {
 	private boolean visible;
 
 	public Article() {
-		children = new ArrayList<Article>();
+		children = new ArrayList<>();
 		visible = true;
 		position = 0;
 	}

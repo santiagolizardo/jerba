@@ -18,8 +18,6 @@ public class DeleteArticleServlet extends BaseServlet {
 	private static final Logger LOGGER = Logger
 			.getLogger(DeleteArticleServlet.class.getName());
 
-	private static final long serialVersionUID = 6465741042405945951L;
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

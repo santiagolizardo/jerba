@@ -23,8 +23,6 @@ import com.santiagolizardo.jerba.utilities.templates.DatastoreResourceLoader;
 
 public class Command {
 
-	private static final long serialVersionUID = 2570210304300019515L;
-
 	protected static final Logger logger = Logger.getLogger(BaseServlet.class
 			.getName());
 

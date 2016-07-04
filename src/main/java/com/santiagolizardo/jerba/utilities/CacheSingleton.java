@@ -31,7 +31,7 @@ public class CacheSingleton {
 	private Cache cache;
 
 	private CacheSingleton() {
-		Map<String, Object> props = new HashMap<String, Object>();
+		Map<String, Object> props = new HashMap<>();
 		props.put(GCacheFactory.EXPIRATION_DELTA, HOUR * 8);
 
 		try {			

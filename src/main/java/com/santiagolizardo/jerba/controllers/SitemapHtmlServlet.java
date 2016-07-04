@@ -11,7 +11,6 @@ import org.apache.velocity.VelocityContext;
 import com.santiagolizardo.jerba.managers.ConfigManager;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
 
-@SuppressWarnings("serial")
 public class SitemapHtmlServlet extends BaseServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)

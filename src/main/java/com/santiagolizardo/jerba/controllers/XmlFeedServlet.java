@@ -25,8 +25,6 @@ import com.sun.syndication.io.SyndFeedOutput;
 
 public class XmlFeedServlet extends BaseServlet {
 
-	private static final long serialVersionUID = -3307705115221219475L;
-
 	private static final Logger LOGGER = Logger.getLogger(XmlFeedServlet.class
 			.getName());
 
@@ -51,7 +49,7 @@ public class XmlFeedServlet extends BaseServlet {
 				feed.setDescription(configManager
 						.getValue(ConfigManager.FEED_DESCRIPTION));
 
-				List<SyndEntry> entries = new ArrayList<SyndEntry>();
+				List<SyndEntry> entries = new ArrayList<>();
 
 				List<Article> articles = ArticleManager.getInstance()
 						.findByType(ArticleType.Ephemeral);

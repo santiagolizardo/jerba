@@ -14,8 +14,6 @@ import com.santiagolizardo.jerba.utilities.CacheSingleton;
 
 public class TemplateServlet extends BaseServlet {
 
-	private static final long serialVersionUID = 6465741042405945951L;
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
