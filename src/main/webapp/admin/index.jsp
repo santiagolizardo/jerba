@@ -1,13 +1,13 @@
 <%@include file="includes/header.jsp"%>
 
 <div class="page-header">
-	<h2>Jerba <small>control panel</small></h2>
+	<h2>Jerba CMS <small>control panel</small></h2>
 </div>
 
 <div class="row">
 
 	<div class="span6">
-		<ul class="nav nav-list">
+		<ul class="nav nav-pills nav-stacked">
 			<li class="nav-header">Content</li>
 			<li><a href="config/">General config</a></li>
 			<li><a href="config/add.jsp">Add config value</a></li>
@@ -22,7 +22,7 @@
 	</div>
 
 	<div class="span6">
-		<ul class="nav nav-list">
+		<ul class="nav nav-pills nav-stacked">
 			<li class="nav-header">Utilities</li>
 			<li><a href="actions/clearCache.jsp">Clean cache</a></li>
 			<li><a href="actions/cacheStats.jsp">View cache stats</a></li>

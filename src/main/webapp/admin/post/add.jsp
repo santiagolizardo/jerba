@@ -17,37 +17,53 @@ $(document).ready(function() {
 
 <legend>Add article</legend>
 
+<div class="form-group">
 <label for="parentId">Parent</label>
-<select name="parentId" id="parentId">
+<select class="form-control" name="parentId" id="parentId">
 <option value="-1">No parent</option>
 <% for(Article a : articles) { %>
 	<option value="<%= a.getKey().getId() %>"><%= a.getTitle() %></option>
 <% } %>
 </select>
+</div>
 
+<div class="form-group">
 <label>Type</label>
-<label for="type_P"><input type="radio" name="type" value="P" id="type_P" /> Permanent</label>
-<label for="type_E"><input type="radio" name="type" value="E" checked="checked" id="type_E" /> Ephemeral</label>
+<div class="radio"><label><input type="radio" name="type" value="P" />Permanent</label></div>
+<div class="radio"><label><input type="radio" name="type" value="E" checked="checked" />Ephemeral</label></div>
+</div>
 
+<div class="form-group">
 <label for="pubDate">Publication date</label>
-<input type="date" name="pubDate" id="pubDate" />
+<input class="form-control" type="date" name="pubDate" id="pubDate" />
+</div>
 
+<div class="form-group">
 <label for="title">Title</label>
-<input type="text" name="title" id="title" />
+<input class="form-control" type="text" name="title" id="title" />
+</div>
 
+<div class="form-group">
 <label for="keywords">Keywords</label>
-<input type="text" name="keywords" id="keywords" />
+<input class="form-control" type="text" name="keywords" id="keywords" />
+</div>
 
+<div class="form-group">
 <label for="description">Description</label>
-<input class="input-xxlarge" type="text" name="description" id="description" />
+<input class="form-control" class="input-xxlarge" type="text" name="description" id="description" />
+</div>
 
+<div class="form-group">
 <label for="content">Content</label>
-<textarea name="content" id="content"></textarea>
+<textarea class="form-control" name="content" id="content"></textarea>
+</div>
 
+<div class="form-group">
 <label for="order">Order</label>
-<input type="text" name="order" id="order" value="0" />
+<input class="form-control" type="text" name="order" id="order" value="0" />
+</div>
 
-<label for="visible" class="checkbox"><input type="checkbox" name="visible" id="visible" value="true" /> Visible -published-</label>
+<div class="checkbox"><label for="visible" class="checkbox"><input type="checkbox" name="visible" id="visible" value="true" />Visible (published)</label></div>
 
 <div class="form-actions">
 	<input class="btn" type="button" value="Cancel" onclick="window.history.go(-1);" />

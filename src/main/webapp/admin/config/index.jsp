@@ -8,7 +8,7 @@ List<ConfigValue> articles = ConfigManager.getInstance().findAll();
 <%@ include file="../includes/header.jsp" %>
 
 <div>
-<a href="add.jsp">Add config value</a>
+<a class="btn btn-primary" href="add.jsp">Add new config value</a>
 </div>
 
 <table id="table" class="table table-striped">

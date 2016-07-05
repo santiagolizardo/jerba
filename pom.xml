@@ -142,6 +142,9 @@
         <groupId>com.google.appengine</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
         <version>${appengine.target.version}</version>
+                <configuration>
+                                <fullScanSeconds>1</fullScanSeconds>
+                                        </configuration>
       </plugin>
       <plugin>
         <groupId>org.datanucleus</groupId>
@@ -159,6 +162,26 @@
           </execution>
         </executions>
       </plugin>
+        <plugin>
+           <groupId>org.codehaus.mojo</groupId>
+           <artifactId>exec-maven-plugin</artifactId>
+           <version>1.5.0</version>
+           <executions>
+             <execution>
+             <phase>generate-sources</phase>
+             <goals>
+              <goal>exec</goal>
+             </goals>
+             </execution>
+           </executions>
+           <configuration>
+               <executable>bower</executable>
+             <arguments>
+              <argument>install</argument>
+             </arguments>
+<!--             <workingDirectory>${basedir}/src/main/webapp</workingDirectory>-->
+           </configuration>
+        </plugin>
     </plugins>
   </build>
 </project>

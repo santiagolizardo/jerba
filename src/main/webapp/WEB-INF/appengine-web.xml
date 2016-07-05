@@ -18,7 +18,7 @@
 		<include path="/styles/**" expiration="4d 5h" />
 		<include path="/scripts/**" expiration="4d 5h" />
 		<include path="/images/**" expiration="4d 5h" />
-		<include path="/bootstrap/**" expiration="4d 5h" />
+		<include path="/components/**" expiration="4d 5h" />
 	</static-files>
 
 </appengine-web-app>

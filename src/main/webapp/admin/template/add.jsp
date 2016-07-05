@@ -9,14 +9,20 @@
 
 	<legend>Add template</legend>
 
+    <div class="form-group">
 		<label for="identifier">Identifier</label>
-		<input type="text" name="identifier" id="identifier" required="required" />
+		<input type="text" class="form-control" name="identifier" id="identifier" required="required" />
+    </div>
 	
+    <div class="form-group">
 		<label for="contentTypeRich" class="checkbox"><input type="radio" name="contentType" id="contentTypeRich" value="rich" /> Rich</label>
 		<label for="contentTypePlain" class="checkbox"><input type="radio" name="contentType" id="contentTypePlain" value="plain" checked="checked" /> Plain</label>
+    </div>
 
+    <div class="form-group">
 		<label for="content">Content</label>
-		<textarea name="content" id="content" required="required" style="width: 90%; height: 300px;"></textarea>
+		<textarea class="form-control" name="content" id="content" required="required" rows="10"></textarea>
+    </div>
 
 	<div class="form-actions">
 		<input class="btn" type="button" value="Cancel" onclick="window.history.go(-1);" />

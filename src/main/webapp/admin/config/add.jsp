@@ -24,24 +24,30 @@ $(document).ready(function() {
 
 <legend>Add configuration value</legend>
 
-<label for="name">Name</label>
-<input type="text" name="name" id="name" />
-<select id="names">
-<option value="">(reset)</option>
-<% for(String name : ConfigManager.NAMES) { %>
-	<option value="<%= name %>"><%= name %></option>
-<% } %>
-</select>
+<div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name" />
+    <select id="names">
+    <option class="form-control" value="">(reset)</option>
+    <% for(String name : ConfigManager.NAMES) { %>
+	    <option value="<%= name %>"><%= name %></option>
+    <% } %>
+    </select>
+</div>
 
-<label for="type">Type</label>
-<select name="type" id="type">
-<% for(String type : configTypes) { %>
-	<option value="<%= type %>"><%= type %></option>
-<% } %>
-</select>
+<div class="form-group">
+    <label for="type">Type</label>
+    <select class="form-control" name="type" id="type">
+    <% for(String type : configTypes) { %>
+	    <option value="<%= type %>"><%= type %></option>
+    <% } %>
+    </select>
+</div>
 
-<label for="value">Value</label>
-<input type="text" name="value" id="value" />
+<div class="form-group">
+    <label for="value">Value</label>
+    <input type="text" class="form-control" name="value" id="value" />
+</div>
 
 <div class="form-actions">
 	<input class="btn" type="button" value="Cancel" onclick="window.history.go(-1);" />

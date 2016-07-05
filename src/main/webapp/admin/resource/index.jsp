@@ -13,7 +13,7 @@ pm.close();
 <%@ include file="../includes/header.jsp" %>
 
 <p>
-<a href="add.jsp">Add</a>
+<a class="btn btn-primary" href="add.jsp">Add new resource</a>
 </p>
 
 <table id="table" class="table table-striped">

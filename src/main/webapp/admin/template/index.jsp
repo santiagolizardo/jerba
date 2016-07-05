@@ -12,7 +12,7 @@ pm.close();
 <%@ include file="../includes/header.jsp" %>
 
 <p>
-<a href="add.jsp">Add</a>
+<a class="btn btn-primary" href="add.jsp">Add new template</a>
 </p>
 
 <table id="table" class="table table-striped">
@@ -28,7 +28,7 @@ pm.close();
 	<td><%= t.getIdentifier() %></td>
 	<td>
 		<div class="btn-group">
-		<a class="btn" href="edit.jsp?identifier=<%= t.getIdentifier() %>">Edit</a>
+		<a class="btn btn-default" href="edit.jsp?identifier=<%= t.getIdentifier() %>">Edit</a>
 		<a class="btn btn-danger" href="/DeleteTemplate?id=<%= t.getIdentifier() %>">Delete</a>
 		</div>
 	</td>

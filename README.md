@@ -10,3 +10,15 @@ Simple Content Management System written in Java and designed to be deployed in 
   - Google App Engine SDK 1.9 for Java
   - Maven 3.3+
 
+### How to try it
+
+```sh
+mvn appengine:devserver
+```
+
+### How to deploy it to Google App Engine
+
+```sh
+mvn appengine:update
+```
+

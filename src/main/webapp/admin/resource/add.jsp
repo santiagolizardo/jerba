@@ -13,11 +13,15 @@ BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService(
 
 <legend>Add resource</legend>
 
-<label for="myFile">File</label>
-<input type="file" name="myFile" id="myFile" />
+<div class="form-group">
+    <label for="myFile">File</label>
+    <input type="file" class="form-control" name="myFile" id="myFile" />
+</div>
 
-<label for="title">Title</label>
-<input type="text" name="title" id="title" />
+<div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" class="form-control" name="title" id="title" />
+</div>
 
 <div class="form-actions">
 	<input class="btn" type="button" value="Cancel" onclick="window.history.go(-1);" />

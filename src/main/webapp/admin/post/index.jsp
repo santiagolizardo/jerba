@@ -8,7 +8,7 @@ List<Article> articles = ArticleManager.getInstance().findAll();
 <%@ include file="../includes/header.jsp" %>
 
 <div>
-<a href="add.jsp">Add new post</a>
+<a class="btn btn-primary" href="add.jsp">Add new post</a>
 </div>
 
 <table id="table" class="table table-striped">
@@ -32,7 +32,7 @@ List<Article> articles = ArticleManager.getInstance().findAll();
 	<td><%= a.getKeywords() %></td>
 	<td>
 		<div class="btn-group">
-		<a class="btn" href="edit.jsp?articleId=<%= a.getKey().getId() %>">Edit</a>
+		<a class="btn btn-default" href="edit.jsp?articleId=<%= a.getKey().getId() %>">Edit</a>
 		<a class="btn btn-danger" href="/DeleteArticle?id=<%= a.getKey().getId() %>">Delete</a>
 		</div>
 	</td>
