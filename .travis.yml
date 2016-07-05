@@ -1,5 +1,9 @@
-before_script:
-- npm install -g bower
 language: java
 jdk:
 - oraclejdk7
+
+before_script:
+- npm install -g bower
+
+script:
+- mvn clean test
