@@ -2,8 +2,8 @@ language: java
 jdk:
   - oraclejdk7
 
-before_script:
+before_install:
   - npm install -g bower
 
-script:
+install:
   - mvn clean test
