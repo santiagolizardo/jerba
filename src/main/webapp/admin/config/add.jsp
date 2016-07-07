@@ -2,12 +2,14 @@
 <%@page import="com.santiagolizardo.jerba.model.Article"%>
 <%@page import="java.util.List"%>
 <%
-String[] configTypes = {
+final String[] configTypes = {
 	"string",
 	"int",
 	"date",
 	"boolean",
 };
+pageContext.setAttribute("configTypes", configTypes);
+pageContext.setAttribute("configNames", ConfigManager.NAMES);
 %>
 <%@ include file="../includes/header.jsp" %>
 
@@ -26,21 +28,21 @@ $(document).ready(function() {
 
 <div class="form-group">
     <label for="name">Name</label>
-    <input type="text" name="name" id="name" />
+    <input class="form-control" type="text" name="name" id="name" required="required" />
     <select id="names">
     <option class="form-control" value="">(reset)</option>
-    <% for(String name : ConfigManager.NAMES) { %>
-	    <option value="<%= name %>"><%= name %></option>
-    <% } %>
+    <c:forEach var="name" items="#{configNames}">
+    	<option value="${name}">${name}</option>
+    </c:forEach>
     </select>
 </div>
 
 <div class="form-group">
     <label for="type">Type</label>
     <select class="form-control" name="type" id="type">
-    <% for(String type : configTypes) { %>
-	    <option value="<%= type %>"><%= type %></option>
-    <% } %>
+    <c:forEach var="type" items="#{configTypes}">
+    	<option value="${type}">${type}</option>
+    </c:forEach>
     </select>
 </div>
 

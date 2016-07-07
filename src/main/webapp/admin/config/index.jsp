@@ -2,7 +2,8 @@
 <%@page import="com.santiagolizardo.jerba.model.ConfigValue"%>
 <%@page import="java.util.List"%>
 <%
-List<ConfigValue> articles = ConfigManager.getInstance().findAll();
+List<ConfigValue> configValues = ConfigManager.getInstance().findAll();
+pageContext.setAttribute("configValues", configValues);
 %>
 
 <%@ include file="../includes/header.jsp" %>
@@ -21,18 +22,18 @@ List<ConfigValue> articles = ConfigManager.getInstance().findAll();
 </tr>
 </thead>
 <tbody>
-<% for(ConfigValue a : articles) { %>
+<c:forEach var="cv" items="#{configValues}">
 	<tr>
-	<td><%= a.getName() %></td>
-	<td><%= a.getType() %></td>
-	<td><%= a.getValue() %></td>
+	    <td>${cv.name}</td>
+	    <td>${cv.type}</td>
+	    <td>${cv.value}</td>
 	<td>
 		<div class="btn-group">
-			<a class="btn btn-danger" href="/Config?name=<%= a.getName() %>">Delete</a>
+			<a class="btn btn-danger" href="/Config?name=${cv.name}">Delete</a>
 		</div>
 	</td>
 	</tr>
-<% } %>
+</c:forEach>
 </tbody>
 </table>
 

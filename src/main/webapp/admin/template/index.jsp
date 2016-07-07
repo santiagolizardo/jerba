@@ -7,6 +7,7 @@
 PersistenceManager pm = PMF.get().getPersistenceManager();
 List<Template> templates = new TemplateManager(pm).findAll();
 pm.close();
+pageContext.setAttribute("templates", templates);
 %>
 
 <%@ include file="../includes/header.jsp" %>
@@ -23,17 +24,17 @@ pm.close();
 </tr>
 </thead>
 <tbody>
-<% for(Template t : templates) { %>
+<c:forEach var="t" items="#{templates}">
 <tr>
-	<td><%= t.getIdentifier() %></td>
+	<td>${t.identifier}</td>
 	<td>
 		<div class="btn-group">
-		<a class="btn btn-default" href="edit.jsp?identifier=<%= t.getIdentifier() %>">Edit</a>
-		<a class="btn btn-danger" href="/DeleteTemplate?id=<%= t.getIdentifier() %>">Delete</a>
+		    <a class="btn btn-default" href="edit.jsp?identifier=${t.identifier}">Edit</a>
+		    <a class="btn btn-danger" href="/DeleteTemplate?id=${t.identifier}">Delete</a>
 		</div>
 	</td>
 </tr>
-<% } %>
+</c:forEach>
 </tbody>
 </table>
 

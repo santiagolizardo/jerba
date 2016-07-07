@@ -3,6 +3,7 @@
 <%@page import="com.santiagolizardo.jerba.managers.ArticleManager"%>
 <%
 List<Article> articles = ArticleManager.getInstance().findAll();
+pageContext.setAttribute("articles", articles);
 %>
 <%@ include file="../includes/header.jsp" %>
 
@@ -21,9 +22,9 @@ $(document).ready(function() {
 <label for="parentId">Parent</label>
 <select class="form-control" name="parentId" id="parentId">
 <option value="-1">No parent</option>
-<% for(Article a : articles) { %>
-	<option value="<%= a.getKey().getId() %>"><%= a.getTitle() %></option>
-<% } %>
+<c:forEach var="a" items="#{articles}">
+    <option value="${a.key.id}">${a.title}</option>
+</c:forEach>
 </select>
 </div>
 

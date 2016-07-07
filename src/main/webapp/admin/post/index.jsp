@@ -3,6 +3,7 @@
 <%@page import="com.santiagolizardo.jerba.managers.ArticleManager"%>
 <%
 List<Article> articles = ArticleManager.getInstance().findAll();
+pageContext.setAttribute("articles", articles);
 %>
 
 <%@ include file="../includes/header.jsp" %>
@@ -23,21 +24,21 @@ List<Article> articles = ArticleManager.getInstance().findAll();
 </tr>
 </thead>
 <tbody>
-<% for(Article a : articles) { %>
-	<tr>
-	<td><%= a.getType() %></td>
-	<td><%= a.getPublicationDate() %></td>
-	<td><%= a.getTitle() %></td>
-	<td><%= a.getDescription() %></td>
-	<td><%= a.getKeywords() %></td>
-	<td>
-		<div class="btn-group">
-		<a class="btn btn-default" href="edit.jsp?articleId=<%= a.getKey().getId() %>">Edit</a>
-		<a class="btn btn-danger" href="/DeleteArticle?id=<%= a.getKey().getId() %>">Delete</a>
-		</div>
-	</td>
-	</tr>
-<% } %>
+<c:forEach var="a" items="#{articles}">
+<tr>
+       <td>${a.type}</td>
+       <td>${a.publicationDate}</td>
+       <td>${a.title}</td>
+       <td>${a.description}</td>
+       <td>${a.keywords}</td>
+       <td>
+               <div class="btn-group">
+               <a class="btn btn-default" href="edit.jsp?articleId=${a.key.id}">Edit</a>
+               <a class="btn btn-danger" href="/DeleteArticle?id=${a.key.id}">Delete</a>
+               </div>
+       </td>
+</tr>
+</c:forEach>
 </tbody>
 </table>
 

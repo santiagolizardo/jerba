@@ -1,3 +1,4 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="com.santiagolizardo.jerba.managers.ConfigManager"%>
 <!DOCTYPE html>
 <html>

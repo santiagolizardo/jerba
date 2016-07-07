@@ -8,6 +8,7 @@
 PersistenceManager pm = PMF.get().getPersistenceManager();
 List<Resource> resources = new ResourceManager(pm).findAll();
 pm.close();
+pageContext.setAttribute("resources", resources);
 %>
 
 <%@ include file="../includes/header.jsp" %>
@@ -28,18 +29,18 @@ pm.close();
 </tr>
 </thead>
 <tbody>
-<% for(Resource r : resources) { %>
+<c:forEach var="r" items="#{resources}">
 <tr>
-	<td><%= r.getContentType() %></td>
-	<td><%= r.getFileName() %></td>
-	<td><%= r.getSize() %></td>
-	<td><%= r.getTitle() %></td>
-	<td><img src="<%= UrlFactory.getInstance().createResourceUrl(r) %>" style="width: 100px; border: 1px solid gray; padding: 3px;" /></td>
+	<td>${r.contentType}</td>
+	<td>${r.fileName}</td>
+	<td>${r.size}</td>
+	<td>${r.title}</td>
+	<td><img src="<%= UrlFactory.getInstance().createResourceUrl((Resource)pageContext.findAttribute("r")) %>" style="width: 100px; border: 1px solid gray; padding: 3px;" /></td>
 	<td>
-		<a class="btn btn-danger" href="/DeleteResource?id=<%= r.getKey().getId() %>">Delete</a>
+		<a class="btn btn-danger" href="/DeleteResource?id=${r.key.id}">Delete</a>
 	</td>
 </tr>
-<% } %>
+</c:forEach>
 </tbody>
 </table>
 
