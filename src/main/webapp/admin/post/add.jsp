@@ -25,7 +25,7 @@
 		<label for="parentId">Parent</label> <select class="form-control"
 			name="parentId" id="parentId">
 			<option value="-1">No parent</option>
-			<c:forEach var="a" items="#{articles}">
+			<c:forEach var="a" items="${articles}">
 				<option value="${a.key.id}">${a.title}</option>
 			</c:forEach>
 		</select>

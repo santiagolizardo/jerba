@@ -30,7 +30,7 @@ $(document).ready(function() {
     <input class="form-control" type="text" name="name" id="name" required="required" />
     <select id="names">
     <option class="form-control" value="">(reset)</option>
-    <c:forEach var="name" items="#{configNames}">
+    <c:forEach var="name" items="${configNames}">
     	<option value="${name}">${name}</option>
     </c:forEach>
     </select>
@@ -39,7 +39,7 @@ $(document).ready(function() {
 <div class="form-group">
     <label for="type">Type</label>
     <select class="form-control" name="type" id="type">
-    <c:forEach var="type" items="#{configTypes}">
+    <c:forEach var="type" items="${configTypes}">
     	<option value="${type}">${type}</option>
     </c:forEach>
     </select>

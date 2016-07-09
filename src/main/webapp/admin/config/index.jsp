@@ -31,7 +31,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="cv" items="#{configValues}">
+		<c:forEach var="cv" items="${configValues}">
 			<tr>
 				<td>${cv.name}</td>
 				<td>${cv.type}</td>

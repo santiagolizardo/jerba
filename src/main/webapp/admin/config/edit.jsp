@@ -34,7 +34,7 @@ $(document).ready(function() {
     <input class="form-control" type="text" name="name" id="name" required="required" value="${configValue.name}" />
     <select id="names">
     <option class="form-control" value="">(reset)</option>
-    <c:forEach var="name" items="#{configNames}">
+    <c:forEach var="name" items="${configNames}">
     	<c:if test="${configValue.name == name}">
 	    	<option value="${name}" selected="selected">${name}</option>
     	</c:if>
@@ -48,7 +48,7 @@ $(document).ready(function() {
 <div class="form-group">
     <label for="type">Type</label>
     <select class="form-control" name="type" id="type">
-    <c:forEach var="type" items="#{configTypes}">
+    <c:forEach var="type" items="${configTypes}">
     	<c:if test="${configValue.type == type}">
 	    	<option value="${type}" selected="selected">${type}</option>
     	</c:if>

@@ -33,7 +33,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="a" items="#{articles}">
+		<c:forEach var="a" items="${articles}">
 			<tr>
 				<td>${a.type}</td>
 				<td>${a.publicationDate}</td>

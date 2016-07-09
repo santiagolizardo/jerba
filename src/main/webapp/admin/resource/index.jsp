@@ -29,7 +29,7 @@ pageContext.setAttribute("resources", resources);
 </tr>
 </thead>
 <tbody>
-<c:forEach var="r" items="#{resources}">
+<c:forEach var="r" items="${resources}">
 <tr>
 	<td>${r.contentType}</td>
 	<td>${r.fileName}</td>

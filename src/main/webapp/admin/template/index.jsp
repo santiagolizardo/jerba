@@ -29,7 +29,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="t" items="#{templates}">
+		<c:forEach var="t" items="${templates}">
 			<tr>
 				<td>${t.identifier}</td>
 				<td>
