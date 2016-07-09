@@ -1,9 +1,13 @@
+<%@page import="com.santiagolizardo.jerba.model.PMF"%>
+<%@page import="javax.jdo.PersistenceManager"%>
 <%@page import="com.santiagolizardo.jerba.model.Article"%>
 <%@page import="java.util.List"%>
 <%@page import="com.santiagolizardo.jerba.managers.ArticleManager"%>
 <%
-	List<Article> articles = ArticleManager.getInstance().findAll();
+	PersistenceManager pm = PMF.get().getPersistenceManager();
+	List<Article> articles = new ArticleManager(pm).findAll();
 	pageContext.setAttribute("articles", articles);
+	pm.close();
 %>
 <%@ include file="../includes/header.jsp"%>
 
