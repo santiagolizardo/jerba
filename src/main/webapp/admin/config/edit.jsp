@@ -1,3 +1,4 @@
+<%@page import="com.santiagolizardo.jerba.model.ConfigValue"%>
 <%@page import="com.santiagolizardo.jerba.managers.ConfigManager"%>
 <%@page import="com.santiagolizardo.jerba.model.Article"%>
 <%@page import="java.util.List"%>
@@ -10,6 +11,9 @@ final String[] configTypes = {
 };
 pageContext.setAttribute("configTypes", configTypes);
 pageContext.setAttribute("configNames", ConfigManager.NAMES);
+final String name = request.getParameter("name");
+final ConfigValue configValue = new ConfigManager().findByName(name);
+pageContext.setAttribute("configValue", configValue);
 %>
 <%@ include file="../includes/header.jsp" %>
 
@@ -21,17 +25,22 @@ $(document).ready(function() {
 });
 </script>
 
-<form action="/AddConfig" method="post">
+<form action="/EditConfig" method="post">
 
-<legend>Add configuration value</legend>
+<legend>Edit configuration value</legend>
 
 <div class="form-group">
     <label for="name">Name</label>
-    <input class="form-control" type="text" name="name" id="name" required="required" />
+    <input class="form-control" type="text" name="name" id="name" required="required" value="${configValue.name}" />
     <select id="names">
     <option class="form-control" value="">(reset)</option>
     <c:forEach var="name" items="#{configNames}">
-    	<option value="${name}">${name}</option>
+    	<c:if test="${configValue.name == name}">
+	    	<option value="${name}" selected="selected">${name}</option>
+    	</c:if>
+    	<c:if test="${configValue.name != name}">
+	    	<option value="${name}">${name}</option>
+    	</c:if>
     </c:forEach>
     </select>
 </div>
@@ -40,19 +49,24 @@ $(document).ready(function() {
     <label for="type">Type</label>
     <select class="form-control" name="type" id="type">
     <c:forEach var="type" items="#{configTypes}">
-    	<option value="${type}">${type}</option>
+    	<c:if test="${configValue.type == type}">
+	    	<option value="${type}" selected="selected">${type}</option>
+    	</c:if>
+    	<c:if test="${configValue.type != type}">
+	    	<option value="${type}">${type}</option>
+    	</c:if>
     </c:forEach>
     </select>
 </div>
 
 <div class="form-group">
     <label for="value">Value</label>
-    <input type="text" class="form-control" name="value" id="value" />
+    <input type="text" class="form-control" name="value" id="value" value="${configValue.value}" />
 </div>
 
 <div class="form-actions">
 	<input class="btn" type="button" value="Cancel" onclick="window.history.go(-1);" />
-	<div class="pull-right"><input class="btn btn-primary" type="submit" value="Add" /></div>
+	<div class="pull-right"><input class="btn btn-primary" type="submit" value="Edit" /></div>
 </div>
 
 </form>

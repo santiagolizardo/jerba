@@ -3,6 +3,7 @@ package com.santiagolizardo.jerba.controllers;
 import java.io.IOException;
 
 import javax.cache.Cache;
+import javax.jdo.PersistenceManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import com.santiagolizardo.jerba.managers.ArticleManager;
 import com.santiagolizardo.jerba.managers.ConfigManager;
 import com.santiagolizardo.jerba.model.Article;
 import com.santiagolizardo.jerba.model.ArticleType;
+import com.santiagolizardo.jerba.model.PMF;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
 
 public class ArticleServlet extends BaseServlet {
@@ -34,7 +36,9 @@ public class ArticleServlet extends BaseServlet {
 		if (cache.containsKey(cacheKey)) {
 			output = (String) cache.get(cacheKey);
 		} else {
-			ArticleManager articleManager = ArticleManager.getInstance();
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			
+			ArticleManager articleManager = new ArticleManager(pm);
 			Article post = articleManager.findBySanitizedTitle(sanitizedTitle);
 			if (null == post) {
 				sendErrorResponse(resp, HttpServletResponse.SC_NOT_FOUND);
@@ -42,7 +46,7 @@ public class ArticleServlet extends BaseServlet {
 			}
 			post.setChildren(articleManager.findByParent(post.getKey()));
 
-			ConfigManager configManager = ConfigManager.getInstance();
+			ConfigManager configManager = new ConfigManager(pm);
 
 			VelocityContext context = prepareContext(req);
 			context.put("article", post);
@@ -57,7 +61,7 @@ public class ArticleServlet extends BaseServlet {
 			output = generateTemplate(
 					post.getType() == ArticleType.Ephemeral ? "article.vm"
 							: "page.vm", context);
-
+			
 			cache.put(cacheKey, output);
 		}
 

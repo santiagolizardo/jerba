@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
@@ -26,18 +28,21 @@ import org.xml.sax.SAXException;
 import com.santiagolizardo.jerba.controllers.admin.AddArticleServlet;
 import com.santiagolizardo.jerba.controllers.admin.AddResourceServlet;
 import com.santiagolizardo.jerba.controllers.admin.AddTemplateServlet;
-import com.santiagolizardo.jerba.controllers.admin.ConfigServlet;
+import com.santiagolizardo.jerba.controllers.admin.AddConfigServlet;
 import com.santiagolizardo.jerba.controllers.admin.DeleteArticleServlet;
 import com.santiagolizardo.jerba.controllers.admin.DeleteResourceServlet;
 import com.santiagolizardo.jerba.controllers.admin.DeleteTemplateServlet;
+import com.santiagolizardo.jerba.controllers.admin.EditConfigServlet;
 import com.santiagolizardo.jerba.controllers.admin.UpdateArticleServlet;
 import com.santiagolizardo.jerba.controllers.admin.UpdateTemplateServlet;
 
 public class FrontControllerFilter implements Filter {
 
+	private static final Logger logger = Logger.getLogger(FrontControllerFilter.class.getName());
+
 	private Map<String, Class<? extends BaseServlet>> routes;
 	private Map<String, String> redirections;
-
+	
 	public void init(FilterConfig filterConfig) throws ServletException {
 		initRedirections( filterConfig );
 		initRoutes();
@@ -60,12 +65,8 @@ public class FrontControllerFilter implements Filter {
 				String url = node.getAttributes().getNamedItem("url").getNodeValue();
 				redirections.put( pattern, url );
 			}
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (ParserConfigurationException|SAXException|IOException e) {
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 
@@ -90,14 +91,15 @@ public class FrontControllerFilter implements Filter {
 		routes.put("/r/.*", ResourceServlet.class);
 
 		// Admin panel
-		routes.put("/UpdateTemplate", UpdateTemplateServlet.class);
 		routes.put("/AddTemplate", AddTemplateServlet.class);
-		routes.put("/DeleteResource", DeleteResourceServlet.class);
+		routes.put("/UpdateTemplate", UpdateTemplateServlet.class);
 		routes.put("/DeleteTemplate", DeleteTemplateServlet.class);
-		routes.put("/DeleteArticle", DeleteArticleServlet.class);
-		routes.put("/UpdateArticle", UpdateArticleServlet.class);
+		routes.put("/DeleteResource", DeleteResourceServlet.class);
 		routes.put("/AddArticle", AddArticleServlet.class);
-		routes.put("/Config", ConfigServlet.class);
+		routes.put("/UpdateArticle", UpdateArticleServlet.class);
+		routes.put("/DeleteArticle", DeleteArticleServlet.class);
+		routes.put("/AddConfig", AddConfigServlet.class);
+		routes.put("/EditConfig", EditConfigServlet.class);
 		routes.put("/Article", ArticleServlet.class);
 		routes.put("/", IndexServlet.class);
 	}

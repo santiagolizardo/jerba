@@ -2,8 +2,10 @@ package com.santiagolizardo.jerba.controllers;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.jdo.PersistenceManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +18,7 @@ import org.apache.velocity.tools.generic.EscapeTool;
 import com.santiagolizardo.jerba.managers.ArticleManager;
 import com.santiagolizardo.jerba.managers.ConfigManager;
 import com.santiagolizardo.jerba.model.ArticleType;
+import com.santiagolizardo.jerba.model.PMF;
 import com.santiagolizardo.jerba.utilities.HtmlUtils;
 import com.santiagolizardo.jerba.utilities.UrlFactory;
 import com.santiagolizardo.jerba.utilities.WebUtils;
@@ -45,7 +48,8 @@ public class Command {
 	}
 
 	protected VelocityContext prepareContext(HttpServletRequest request) {
-		ConfigManager configManager = ConfigManager.getInstance();
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		ConfigManager configManager = new ConfigManager(pm);
 
 		String serverName = request.getServerName();
 		VelocityContext context = new VelocityContext();
@@ -55,7 +59,7 @@ public class Command {
 		context.put("serverName", serverName);
 		context.put("esc", new EscapeTool());
 		context.put("tools", new HtmlUtils());
-		context.put("pages", ArticleManager.getInstance().findByType(ArticleType.Permanent));
+		context.put("pages", new ArticleManager(pm).findByType(ArticleType.Permanent));
 
 		String metaTitle = configManager.getValue(ConfigManager.META_TITLE);
 		String metaKeywords = configManager
@@ -74,7 +78,7 @@ public class Command {
 		context.put("feedUrl", feedUrl);
 		context.put("feedDescription",
 				configManager.getValue(ConfigManager.FEED_DESCRIPTION));
-
+		
 		return context;
 	}
 
@@ -88,8 +92,7 @@ public class Command {
 			Template t = velocityEngine.getTemplate(name);
 			t.merge(context, writer);
 		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 		return writer.toString();
 	}
@@ -105,8 +108,7 @@ public class Command {
 		try {
 			resp.getWriter().write(output);
 		} catch (Exception e) {
-			logger.severe(e.getMessage());
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 

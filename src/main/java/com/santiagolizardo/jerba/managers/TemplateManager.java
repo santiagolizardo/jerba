@@ -2,6 +2,7 @@ package com.santiagolizardo.jerba.managers;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.jdo.JDOObjectNotFoundException;
@@ -15,8 +16,7 @@ import com.santiagolizardo.jerba.utilities.templates.DatastoreResourceLoader;
 
 public class TemplateManager {
 
-	private static final Logger LOGGER = Logger.getLogger(TemplateManager.class
-			.getName());
+	private static final Logger logger = Logger.getLogger(TemplateManager.class.getName());
 
 	private PersistenceManager pm;
 
@@ -30,7 +30,7 @@ public class TemplateManager {
 		try {
 			template = pm.getObjectById(Template.class, id);
 		} catch (JDOObjectNotFoundException e) {
-			LOGGER.warning(e.getMessage());
+			logger.log(Level.WARNING, e.getMessage(), e);
 		}
 
 		return template;
@@ -47,13 +47,12 @@ public class TemplateManager {
 		if (results.size() == 0) {
 			tpl = new Template();
 			String resourceName = "defaults/" + id;
-			InputStream is = DatastoreResourceLoader.class
-					.getResourceAsStream(resourceName);
+			InputStream is = DatastoreResourceLoader.class.getResourceAsStream(resourceName);
 			String text = "";
 			try {
 				text = StreamUtils.convertStreamToString(is);
 			} catch (Exception e) {
-				LOGGER.warning(e.getMessage());
+				logger.log(Level.WARNING, e.getMessage(), e);
 			}
 			tpl.setContent(new Text(text));
 		} else {

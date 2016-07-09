@@ -87,7 +87,10 @@ public class ConfigManager {
 	}
 
 	public List<ConfigValue> findAll() {
-		Query q = pm.newQuery(ConfigValue.class);
-		return (List<ConfigValue>) q.execute();
+		Query query = pm.newQuery(ConfigValue.class);
+		List<ConfigValue> results = (List<ConfigValue>) query.execute();
+		results.size();
+		query.closeAll();
+		return results;
 	}
 }

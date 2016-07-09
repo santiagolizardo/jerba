@@ -12,7 +12,7 @@ import com.santiagolizardo.jerba.managers.ConfigManager;
 import com.santiagolizardo.jerba.model.ConfigValue;
 import com.santiagolizardo.jerba.model.PMF;
 
-public class ConfigServlet extends BaseServlet {
+public class AddConfigServlet extends BaseServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)

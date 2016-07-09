@@ -2,7 +2,6 @@ package com.santiagolizardo.jerba.controllers.admin;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -26,12 +25,10 @@ import com.santiagolizardo.jerba.utilities.StringUtils;
 
 public class AddArticleServlet extends BaseServlet {
 
-	private static final Logger LOGGER = Logger
-			.getLogger(AddArticleServlet.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(AddArticleServlet.class.getName());
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RequestParam input = new RequestParam(req);
 		String type = req.getParameter("type");
 		String title = req.getParameter("title");
@@ -45,16 +42,17 @@ public class AddArticleServlet extends BaseServlet {
 
 		String sanitizedTitle = StringUtils.sanitize(title);
 
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		ArticleManager articleManager = new ArticleManager(pm);
+
 		Article article = new Article();
 		if (parentId != -1) {
-			Article parentArticle = ArticleManager.getInstance()
-					.findByPrimaryKey(parentId);
+			Article parentArticle = articleManager.findByPrimaryKey(parentId);
 			if (null != parentArticle) {
 				article.setParent(parentArticle.getKey());
 			}
 		}
-		article.setType(type.equals("P") ? ArticleType.Permanent
-				: ArticleType.Ephemeral);
+		article.setType(type.equals("P") ? ArticleType.Permanent : ArticleType.Ephemeral);
 		article.setTitle(title);
 		article.setSanitizedTitle(sanitizedTitle);
 		article.setKeywords(keywords);
@@ -63,8 +61,7 @@ public class AddArticleServlet extends BaseServlet {
 		article.setPosition(order);
 		article.setVisible(visible);
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat(
-				"yyyy/MM/dd hh:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 
 		Date pubDate = new Date();
 		if (pubDateParam != null && !pubDateParam.isEmpty()) {
@@ -82,10 +79,7 @@ public class AddArticleServlet extends BaseServlet {
 
 		// Save transaction.
 
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-
-		ArchiveStats archiveStats = new ArchiveStatsManager(pm)
-				.findByYearMonth(year, month);
+		ArchiveStats archiveStats = new ArchiveStatsManager(pm).findByYearMonth(year, month);
 		if (archiveStats == null) {
 			archiveStats = new ArchiveStats(year, month);
 		}

@@ -3,9 +3,11 @@ package com.santiagolizardo.jerba.controllers;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.cache.Cache;
+import javax.jdo.PersistenceManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +15,7 @@ import com.santiagolizardo.jerba.managers.ArticleManager;
 import com.santiagolizardo.jerba.managers.ConfigManager;
 import com.santiagolizardo.jerba.model.Article;
 import com.santiagolizardo.jerba.model.ArticleType;
+import com.santiagolizardo.jerba.model.PMF;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
 import com.santiagolizardo.jerba.utilities.UrlFactory;
 import com.sun.syndication.feed.synd.SyndContent;
@@ -25,7 +28,7 @@ import com.sun.syndication.io.SyndFeedOutput;
 
 public class XmlFeedServlet extends BaseServlet {
 
-	private static final Logger LOGGER = Logger.getLogger(XmlFeedServlet.class
+	private static final Logger logger = Logger.getLogger(XmlFeedServlet.class
 			.getName());
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -36,12 +39,14 @@ public class XmlFeedServlet extends BaseServlet {
 		if (cache.containsKey(cacheKey)) {
 			output = (String) cache.get(cacheKey);
 		} else {
-
+			PersistenceManager pm = null;
 			try {
 				SyndFeed feed = new SyndFeedImpl();
 				feed.setFeedType("rss_2.0");
 
-				ConfigManager configManager = ConfigManager.getInstance();
+				pm = PMF.get().getPersistenceManager();
+				
+				ConfigManager configManager = new ConfigManager(pm);
 				feed.setTitle(configManager.getValue(ConfigManager.META_TITLE)
 						+ configManager.findByName("website.title.suffix")
 								.getValue());
@@ -51,7 +56,7 @@ public class XmlFeedServlet extends BaseServlet {
 
 				List<SyndEntry> entries = new ArrayList<>();
 
-				List<Article> articles = ArticleManager.getInstance()
+				List<Article> articles = new ArticleManager(pm)
 						.findByType(ArticleType.Ephemeral);
 				for (Article article : articles) {
 					SyndEntry entry;
@@ -75,7 +80,9 @@ public class XmlFeedServlet extends BaseServlet {
 
 				cache.put(cacheKey, output);
 			} catch (Exception e) {
-				LOGGER.severe(e.getMessage());
+				logger.log(Level.SEVERE, e.getMessage(), e);
+			} finally {
+				if(pm != null) pm.close();
 			}
 		}
 

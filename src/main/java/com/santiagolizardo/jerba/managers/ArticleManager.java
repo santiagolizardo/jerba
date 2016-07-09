@@ -13,30 +13,16 @@ import javax.jdo.Query;
 import com.google.appengine.api.datastore.Key;
 import com.santiagolizardo.jerba.model.Article;
 import com.santiagolizardo.jerba.model.ArticleType;
-import com.santiagolizardo.jerba.model.PMF;
 
 public class ArticleManager {
 
 	private static final Logger LOGGER = Logger.getLogger(ArticleManager.class
 			.getName());
 
-	private static ArticleManager singleton;
-
-	public static ArticleManager getInstance() {
-		if (null == singleton) {
-			singleton = new ArticleManager();
-		}
-		return singleton;
-	}
-
 	private PersistenceManager pm;
 
 	public ArticleManager(PersistenceManager pm) {
 		this.pm = pm;
-	}
-
-	public ArticleManager() {
-		this(PMF.get().getPersistenceManager());
 	}
 
 	public Article findBySanitizedTitle(String sanitizedTitle) {

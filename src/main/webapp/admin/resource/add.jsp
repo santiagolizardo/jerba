@@ -9,7 +9,6 @@ BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService(
 <%@include file="../includes/header.jsp" %>
 
 <form action="<%= blobstoreService.createUploadUrl("/upload") %>" method="post" enctype="multipart/form-data">
-<input type="hidden" name="action" value="Add" />
 
 <legend>Add resource</legend>
 

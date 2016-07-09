@@ -6,12 +6,14 @@ import java.io.Writer;
 import java.util.List;
 
 import javax.cache.Cache;
+import javax.jdo.PersistenceManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.santiagolizardo.jerba.managers.ArticleManager;
 import com.santiagolizardo.jerba.model.Article;
 import com.santiagolizardo.jerba.model.ArticleType;
+import com.santiagolizardo.jerba.model.PMF;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
 import com.santiagolizardo.jerba.utilities.UrlFactory;
 
@@ -37,7 +39,8 @@ public class SitemapXmlServlet extends BaseServlet {
 			writer.write("<priority>1.0</priority>");
 			writer.write("</url>");
 
-			ArticleManager articleManager = ArticleManager.getInstance();
+			PersistenceManager pm = PMF.get().getPersistenceManager();
+			ArticleManager articleManager = new ArticleManager(pm);
 			List<Article> pages = articleManager
 					.findByType(ArticleType.Permanent);
 			for (Article page : pages) {
@@ -71,6 +74,7 @@ public class SitemapXmlServlet extends BaseServlet {
 			writer.write("</urlset>");
 			output = writer.toString();
 			cache.put(cacheKey, output);
+			pm.close();
 		}
 
 		writeResponse(output, resp, "text/xml; charset=utf-8");
