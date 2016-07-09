@@ -40,38 +40,46 @@ public class FrontControllerFilter implements Filter {
 
 	private static final Logger logger = Logger.getLogger(FrontControllerFilter.class.getName());
 
-	private Map<String, Class<? extends BaseServlet>> routes;
+	private Map<Pattern, Class<? extends BaseServlet>> routePatterns;
+
 	private Map<String, String> redirections;
-	
+
+	private boolean appspotDomainAllowed = true;
+
 	public void init(FilterConfig filterConfig) throws ServletException {
-		initRedirections( filterConfig );
+		initRedirections(filterConfig);
 		initRoutes();
 	}
 
-	private void initRedirections( FilterConfig filterConfig ) {
+	private void initRedirections(FilterConfig filterConfig) {
 		redirections = new LinkedHashMap<>();
 
-		InputStream is = filterConfig.getServletContext().getResourceAsStream(
-				"/WEB-INF/jerba-config.xml");
+		InputStream is = filterConfig.getServletContext().getResourceAsStream("/WEB-INF/jerba-config.xml");
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder;
 		try {
 			docBuilder = dbFactory.newDocumentBuilder();
 			Document doc = docBuilder.parse(is);
+			try {
+				appspotDomainAllowed = Boolean.parseBoolean(
+						doc.getDocumentElement().getAttributes().getNamedItem("appspot-domain-allowed").getNodeValue());
+			} catch (Exception e) {
+				logger.log(Level.WARNING, e.getMessage(), e);
+			}
 			NodeList redirectionNodes = doc.getElementsByTagName("redirection");
 			for (int i = 0; i < redirectionNodes.getLength(); i++) {
 				Node node = redirectionNodes.item(i);
 				String pattern = node.getAttributes().getNamedItem("pattern").getNodeValue();
 				String url = node.getAttributes().getNamedItem("url").getNodeValue();
-				redirections.put( pattern, url );
+				redirections.put(pattern, url);
 			}
-		} catch (ParserConfigurationException|SAXException|IOException e) {
+		} catch (ParserConfigurationException | SAXException | IOException e) {
 			logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 
 	private void initRoutes() {
-		routes = new LinkedHashMap<String, Class<? extends BaseServlet>>();
+		Map<String, Class<? extends BaseServlet>> routes = new LinkedHashMap<>();
 
 		// Public pages
 		routes.put("/contact", ContactServlet.class);
@@ -102,33 +110,45 @@ public class FrontControllerFilter implements Filter {
 		routes.put("/EditConfig", EditConfigServlet.class);
 		routes.put("/Article", ArticleServlet.class);
 		routes.put("/", IndexServlet.class);
+
+		routePatterns = new LinkedHashMap<Pattern, Class<? extends BaseServlet>>();
+		// Compile regexes at init time (only once) and not for every request.
+		for (String route : routes.keySet()) {
+			Pattern regexp = Pattern.compile(route);
+			routePatterns.put(regexp, routes.get(route));
+		}
 	}
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		         HttpServletRequest req = (HttpServletRequest) request;
-		         HttpServletResponse resp = (HttpServletResponse) response;
-			
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse resp = (HttpServletResponse) response;
+
+		if (appspotDomainAllowed == false && req.getServerName().contains(".appspot.com")) {
+			resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+
 		if (true == processRedirections(req, resp)) {
 			return;
 		}
 
-		for (String route : routes.keySet()) {
-			Pattern regexp = Pattern.compile(route);
-			if (regexp.matcher(req.getRequestURI()).matches()) {
-				Class<? extends BaseServlet> clazz = routes.get(route);
+		for (Pattern routePattern : routePatterns.keySet()) {
+			if (routePattern.matcher(req.getRequestURI()).matches()) {
+				Class<? extends BaseServlet> clazz = routePatterns.get(routePattern);
 				processRequest(clazz, req, resp);
 				return;
 			}
 		}
 
-		if( req.getRequestURI().startsWith( "/admin" ) || req.getRequestURI().startsWith( "/_ah" ) ) 
-			chain.doFilter( request, response );
-		else
+		if (req.getRequestURI().startsWith("/admin") || req.getRequestURI().startsWith("/_ah")) {
+			chain.doFilter(request, response);
+		} else {
 			req.getRequestDispatcher("/error-page?code=404").forward(req, resp);
+		}
 	}
 
-	private void processRequest(Class<? extends BaseServlet> clazz,
-			HttpServletRequest req, HttpServletResponse resp)
+	private void processRequest(Class<? extends BaseServlet> clazz, HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
 			BaseServlet httpServlet = (BaseServlet) clazz.newInstance();
@@ -138,15 +158,12 @@ public class FrontControllerFilter implements Filter {
 			} else {
 				httpServlet.doPost(req, resp);
 			}
-		} catch (IllegalAccessException iae) {
-			System.err.println(iae.getMessage());
-		} catch (InstantiationException e) {
-			e.printStackTrace();
+		} catch (IllegalAccessException | InstantiationException e) {
+			logger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 
-	private boolean processRedirections(HttpServletRequest req,
-			HttpServletResponse resp) {
+	private boolean processRedirections(HttpServletRequest req, HttpServletResponse resp) {
 		String requestUri = req.getRequestURI();
 
 		for (String url : redirections.keySet()) {
@@ -161,5 +178,6 @@ public class FrontControllerFilter implements Filter {
 		return false;
 	}
 
-	public void destroy() {}
+	public void destroy() {
+	}
 }
