@@ -6,6 +6,15 @@
 <div>
 $article.content.value
 </div>
-<p class="icon_tag"><strong>Keywords:</strong> $article.keywords</p>
+
+#if( $keywords )
+<p class="icon_tag">
+	<ul class="tag_cloud">
+		#foreach( $keyword in $keywords )
+			<li class="icon_tag"><a title="$keyword" href="$urlFactory.createSearchUrl( $keyword )">$keyword</a></li> 
+		#end
+	</ul>
+</p>
+#end
 
 #parse("footer.vm")

@@ -141,7 +141,7 @@ public class FrontControllerFilter implements Filter {
 			}
 		}
 
-		if (req.getRequestURI().startsWith("/admin") || req.getRequestURI().startsWith("/_ah")) {
+		if (req.getRequestURI().startsWith("/admin") || req.getRequestURI().startsWith("/_ah") || req.getRequestURI().startsWith("/.well-known")) {
 			chain.doFilter(request, response);
 		} else {
 			req.getRequestDispatcher("/error-page?code=404").forward(req, resp);

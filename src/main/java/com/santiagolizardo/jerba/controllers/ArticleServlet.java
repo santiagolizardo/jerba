@@ -22,7 +22,7 @@ public class ArticleServlet extends BaseServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String[] tokens = req.getRequestURI().split("/");
+		final String[] tokens = req.getRequestURI().split("/");
 		if (tokens.length < 3) {
 			sendErrorResponse(resp, HttpServletResponse.SC_NOT_FOUND);
 			return;
@@ -41,6 +41,7 @@ public class ArticleServlet extends BaseServlet {
 			ArticleManager articleManager = new ArticleManager(pm);
 			Article post = articleManager.findBySanitizedTitle(sanitizedTitle);
 			if (null == post) {
+				pm.close();
 				sendErrorResponse(resp, HttpServletResponse.SC_NOT_FOUND);
 				return;
 			}
@@ -58,10 +59,18 @@ public class ArticleServlet extends BaseServlet {
 			context.put("metaKeywords", post.getKeywords());
 			context.put("metaDesc", post.getDescription());
 
+			String keywordsString = post.getKeywords();
+			if(keywordsString != null) {
+				final String[] keywords = keywordsString.split(",");
+				context.put("keywords", keywords);
+			}
+
 			output = generateTemplate(
 					post.getType() == ArticleType.Ephemeral ? "article.vm"
 							: "page.vm", context);
-			
+
+			pm.close();
+
 			cache.put(cacheKey, output);
 		}
 
