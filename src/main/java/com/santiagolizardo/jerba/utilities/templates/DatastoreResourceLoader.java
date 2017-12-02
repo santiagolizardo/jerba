@@ -33,7 +33,7 @@ public class DatastoreResourceLoader extends ResourceLoader {
 	@Override
 	public InputStream getResourceStream(String id)
 			throws ResourceNotFoundException {
-		byte[] contentBytes = (id + " not found").getBytes();
+		byte[] contentBytes;
 
 		Cache cache = CacheSingleton.getInstance().getCache();
 
