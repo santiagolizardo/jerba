@@ -2,6 +2,7 @@ package com.santiagolizardo.jerba.controllers;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -151,14 +152,14 @@ public class FrontControllerFilter implements Filter {
 	private void processRequest(Class<? extends BaseServlet> clazz, HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		try {
-			BaseServlet httpServlet = (BaseServlet) clazz.newInstance();
+			BaseServlet httpServlet = clazz.getDeclaredConstructor().newInstance();
 			httpServlet.init();
 			if ("GET".equals(req.getMethod())) {
 				httpServlet.doGet(req, resp);
 			} else {
 				httpServlet.doPost(req, resp);
 			}
-		} catch (IllegalAccessException | InstantiationException e) {
+		} catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException | InstantiationException e) {
 			logger.log(Level.WARNING, e.getMessage(), e);
 		}
 	}
