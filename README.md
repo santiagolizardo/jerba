@@ -8,7 +8,7 @@ Simple Content Management System written in Java and designed to be deployed in 
 
   - Java JDK 1.8
   - Google App Engine SDK 1.9 for Java
-  - Maven 3.3+
+  - Maven 3.5+
 
 ### How to try it
 
