@@ -23,7 +23,7 @@ public class DeleteArticleServlet extends BaseServlet {
 			throws ServletException, IOException {
 		Long id = new RequestParam(req).getLong("id");
 		if (null == id) {
-			resp.sendError(500);
+			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			return;
 		}
 

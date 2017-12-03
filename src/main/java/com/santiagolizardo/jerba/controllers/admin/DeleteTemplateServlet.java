@@ -22,7 +22,7 @@ public class DeleteTemplateServlet extends BaseServlet {
 			throws ServletException, IOException {
 		String id = req.getParameter("id");
 		if (null == id) {
-			resp.sendError(500);
+			resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			return;
 		}
 
