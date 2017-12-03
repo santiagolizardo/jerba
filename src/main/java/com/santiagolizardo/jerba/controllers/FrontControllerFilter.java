@@ -111,7 +111,7 @@ public class FrontControllerFilter implements Filter {
 		routes.put("/Article", ArticleServlet.class);
 		routes.put("/", IndexServlet.class);
 
-		routePatterns = new LinkedHashMap<Pattern, Class<? extends BaseServlet>>();
+		routePatterns = new LinkedHashMap<>();
 		// Compile regexes at init time (only once) and not for every request.
 		for (String route : routes.keySet()) {
 			Pattern regexp = Pattern.compile(route);
