@@ -13,12 +13,12 @@ Simple Content Management System written in Java and designed to be deployed in 
 ### How to try it
 
 ```sh
-mvn appengine:devserver
+$ mvn appengine:run
 ```
 
 ### How to deploy it to Google App Engine
 
 ```sh
-mvn appengine:update
+$ mvn appengine:update
 ```
 
