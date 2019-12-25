@@ -9,10 +9,14 @@ Simple Content Management System written in Java and designed to be deployed in 
   - Java JDK 1.8
   - Google App Engine SDK 1.9 for Java
   - Maven 3.5+
+  - Bower JS
 
 ### How to try it
 
 ```sh
+$ cp src/main/webapp/WEB-INF/jerba-config-example.xml src/main/webapp/WEB-INF/jerba-config.xml
+$ mvn compile
+$ mvn package
 $ mvn appengine:run
 ```
 
