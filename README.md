@@ -26,3 +26,9 @@ $ mvn appengine:run
 $ mvn appengine:update
 ```
 
+### Other useful commands
+
+```sh
+$ mvn versions:display-dependency-updates # Check for dependency updates
+```
+
