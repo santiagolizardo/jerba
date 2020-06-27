@@ -21,6 +21,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import com.santiagolizardo.jerba.utilities.Config;
+import com.santiagolizardo.jerba.utilities.ConfigReader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -43,9 +45,7 @@ public class FrontControllerFilter implements Filter {
 
 	private Map<Pattern, Class<? extends BaseServlet>> routePatterns;
 
-	private Map<String, String> redirections;
-
-	private boolean appspotDomainAllowed = true;
+	private Config config;
 
 	public void init(FilterConfig filterConfig) throws ServletException {
 		initRedirections(filterConfig);
@@ -53,30 +53,8 @@ public class FrontControllerFilter implements Filter {
 	}
 
 	private void initRedirections(FilterConfig filterConfig) {
-		redirections = new LinkedHashMap<>();
-
 		InputStream is = filterConfig.getServletContext().getResourceAsStream("/WEB-INF/jerba-config.xml");
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder docBuilder;
-		try {
-			docBuilder = dbFactory.newDocumentBuilder();
-			Document doc = docBuilder.parse(is);
-			try {
-				appspotDomainAllowed = Boolean.parseBoolean(
-						doc.getDocumentElement().getAttributes().getNamedItem("appspot-domain-allowed").getNodeValue());
-			} catch (Exception e) {
-				logger.log(Level.WARNING, e.getMessage(), e);
-			}
-			NodeList redirectionNodes = doc.getElementsByTagName("redirection");
-			for (int i = 0; i < redirectionNodes.getLength(); i++) {
-				Node node = redirectionNodes.item(i);
-				String pattern = node.getAttributes().getNamedItem("pattern").getNodeValue();
-				String url = node.getAttributes().getNamedItem("url").getNodeValue();
-				redirections.put(pattern, url);
-			}
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
-		}
+		config = new ConfigReader().read(is);
 	}
 
 	private void initRoutes() {
@@ -125,8 +103,14 @@ public class FrontControllerFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 
-		if (appspotDomainAllowed == false && req.getServerName().contains(".appspot.com")) {
+		if (!config.isAppspotDomainAllowed() && req.getServerName().contains(".appspot.com")) {
 			resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+
+		if(!config.isInsecureHttpAllowed() && !req.isSecure()) {
+			String newUrl = ((HttpServletRequest) request).getRequestURL().toString();
+			resp.sendRedirect(newUrl.replaceFirst("http", "https"));
 			return;
 		}
 
@@ -167,11 +151,11 @@ public class FrontControllerFilter implements Filter {
 	private boolean processRedirections(HttpServletRequest req, HttpServletResponse resp) {
 		String requestUri = req.getRequestURI();
 
-		for (String url : redirections.keySet()) {
+		for (String url : config.getRedirections().keySet()) {
 			Pattern pattern = Pattern.compile(url);
 			if (pattern.matcher(requestUri).matches()) {
 				resp.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
-				resp.setHeader("Location", redirections.get(url));
+				resp.setHeader("Location", config.getRedirections().get(url));
 				return true;
 			}
 		}
