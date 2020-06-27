@@ -2,10 +2,12 @@ package com.santiagolizardo.jerba.controllers;
 
 import java.io.IOException;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
+@WebServlet(urlPatterns = {"/error-page"})
 public class ErrorServlet extends CommandServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)

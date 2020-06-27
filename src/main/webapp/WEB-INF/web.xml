@@ -1,50 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	version="2.5">
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>Admin panel</web-resource-name>
-			<url-pattern>/admin/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>admin</role-name>
-		</auth-constraint>
-		<user-data-constraint>
-			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
-		</user-data-constraint>
-	</security-constraint>
-	<filter>
-		<filter-name>FrontControllerFilter</filter-name>
-		<filter-class>com.santiagolizardo.jerba.controllers.FrontControllerFilter</filter-class>
-	</filter>
-	<servlet>
-		<servlet-name>ErrorServlet</servlet-name>
-		<servlet-class>com.santiagolizardo.jerba.controllers.ErrorServlet</servlet-class>
-	</servlet>
-	<filter-mapping>
-		<filter-name>FrontControllerFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-		<servlet-name>FrontControllerFilter</servlet-name>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>ERROR</dispatcher>
-	</filter-mapping>
-	<servlet-mapping>
-		<servlet-name>ErrorServlet</servlet-name>
-		<url-pattern>/error-page</url-pattern>
-	</servlet-mapping>
-	<error-page>
-		<error-code>403</error-code>
-		<location>/error-page?code=403</location>
-	</error-page>
-	<error-page>
-		<error-code>404</error-code>
-		<location>/error-page?code=404</location>
-	</error-page>
-	<error-page>
-		<error-code>500</error-code>
-		<location>/error-page?code=500</location>
-	</error-page>
+<web-app
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+        version="3.0">
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Admin panel</web-resource-name>
+            <url-pattern>/admin/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/error-page?code=403</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error-page?code=404</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error-page?code=500</location>
+    </error-page>
 </web-app>
