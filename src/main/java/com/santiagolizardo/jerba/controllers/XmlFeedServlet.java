@@ -26,6 +26,7 @@ import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.feed.synd.SyndFeedImpl;
 import com.sun.syndication.io.SyndFeedOutput;
 
+@SuppressWarnings("unchecked")
 public class XmlFeedServlet extends BaseServlet {
 
 	private static final Logger logger = Logger.getLogger(XmlFeedServlet.class

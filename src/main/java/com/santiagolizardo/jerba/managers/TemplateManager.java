@@ -14,6 +14,7 @@ import com.santiagolizardo.jerba.model.Template;
 import com.santiagolizardo.jerba.utilities.StreamUtils;
 import com.santiagolizardo.jerba.utilities.templates.DatastoreResourceLoader;
 
+@SuppressWarnings("unchecked")
 public class TemplateManager {
 
 	private static final Logger logger = Logger.getLogger(TemplateManager.class.getName());

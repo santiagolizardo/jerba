@@ -17,6 +17,7 @@ import com.santiagolizardo.jerba.model.PMF;
 import com.santiagolizardo.jerba.model.Template;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
 
+@SuppressWarnings("unchecked")
 public class DatastoreResourceLoader extends ResourceLoader {
 
 	private static final Logger LOGGER = Logger

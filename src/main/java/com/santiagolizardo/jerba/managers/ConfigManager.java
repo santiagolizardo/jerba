@@ -9,6 +9,7 @@ import javax.jdo.Query;
 import com.santiagolizardo.jerba.model.ConfigValue;
 import com.santiagolizardo.jerba.model.PMF;
 
+@SuppressWarnings("unchecked")
 public class ConfigManager {
 
 	private static final Logger LOGGER = Logger.getLogger(ConfigManager.class

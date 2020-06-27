@@ -15,6 +15,7 @@ public class ArchiveStatsManager {
 		this.pm = pm;
 	}
 
+	@SuppressWarnings("unchecked")
 	public ArchiveStats findByYearMonth(int year, int month) {
 		ArchiveStats archiveStats = null;
 
@@ -30,6 +31,7 @@ public class ArchiveStatsManager {
 		return archiveStats;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<ArchiveStats> findAll() {
 		Query q = pm.newQuery(ArchiveStats.class);
 		q.setOrdering("year DESC, month DESC");

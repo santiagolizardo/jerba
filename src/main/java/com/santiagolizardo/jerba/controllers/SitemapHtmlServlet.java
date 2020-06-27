@@ -11,6 +11,7 @@ import org.apache.velocity.VelocityContext;
 import com.santiagolizardo.jerba.managers.ConfigManager;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
 
+@SuppressWarnings("unchecked")
 public class SitemapHtmlServlet extends BaseServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)

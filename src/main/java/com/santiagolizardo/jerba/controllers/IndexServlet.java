@@ -22,6 +22,7 @@ public class IndexServlet extends BaseServlet {
 
 	private static final int NUM_ARTICLES_INDEX = 6;
 
+	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		String output = null;

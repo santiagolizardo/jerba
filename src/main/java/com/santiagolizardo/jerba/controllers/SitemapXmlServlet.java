@@ -21,6 +21,7 @@ import com.santiagolizardo.jerba.model.PMF;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
 import com.santiagolizardo.jerba.utilities.UrlFactory;
 
+@SuppressWarnings("unchecked")
 public class SitemapXmlServlet extends BaseServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {

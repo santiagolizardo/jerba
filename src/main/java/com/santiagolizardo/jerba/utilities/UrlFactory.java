@@ -2,12 +2,15 @@ package com.santiagolizardo.jerba.utilities;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.logging.Logger;
 
 import com.santiagolizardo.jerba.model.Article;
 import com.santiagolizardo.jerba.model.Resource;
 import com.santiagolizardo.jerba.model.SearchResult;
 
 public class UrlFactory {
+
+	private static final Logger logger = Logger.getLogger(UrlFactory.class.getName());
 
 	private static UrlFactory singleton = null;
 
@@ -28,7 +31,8 @@ public class UrlFactory {
 					URLEncoder.encode(query, "UTF-8"));
 
 		} catch (UnsupportedEncodingException uee) {
-			return String.format("/search?query=%s", URLEncoder.encode(query));
+			logger.warning(uee.getMessage());
+			return String.format("/search?query=%s", query);
 		}
 	}
 

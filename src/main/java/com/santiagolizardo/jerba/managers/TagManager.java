@@ -7,6 +7,7 @@ import javax.jdo.Query;
 
 import com.santiagolizardo.jerba.model.Tag;
 
+@SuppressWarnings("unchecked")
 public class TagManager {
 
 	private PersistenceManager pm;

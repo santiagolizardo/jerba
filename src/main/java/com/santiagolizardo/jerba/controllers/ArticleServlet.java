@@ -17,6 +17,7 @@ import com.santiagolizardo.jerba.model.ArticleType;
 import com.santiagolizardo.jerba.model.PMF;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
 
+@SuppressWarnings("unchecked")
 public class ArticleServlet extends BaseServlet {
 
 	@Override

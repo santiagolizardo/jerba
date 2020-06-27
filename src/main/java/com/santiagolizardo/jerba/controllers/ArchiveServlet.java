@@ -18,6 +18,7 @@ import com.santiagolizardo.jerba.model.Article;
 import com.santiagolizardo.jerba.model.PMF;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
 
+@SuppressWarnings("unchecked")
 public class ArchiveServlet extends BaseServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)

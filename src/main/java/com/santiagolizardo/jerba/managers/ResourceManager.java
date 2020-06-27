@@ -7,6 +7,7 @@ import javax.jdo.Query;
 
 import com.santiagolizardo.jerba.model.Resource;
 
+@SuppressWarnings("unchecked")
 public class ResourceManager {
 
 	private PersistenceManager pm;

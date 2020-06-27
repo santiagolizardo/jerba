@@ -14,6 +14,7 @@ import com.google.appengine.api.datastore.Key;
 import com.santiagolizardo.jerba.model.Article;
 import com.santiagolizardo.jerba.model.ArticleType;
 
+@SuppressWarnings("unchecked")
 public class ArticleManager {
 
 	private static final Logger LOGGER = Logger.getLogger(ArticleManager.class

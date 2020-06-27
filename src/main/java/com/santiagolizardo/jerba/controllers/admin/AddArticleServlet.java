@@ -2,6 +2,7 @@ package com.santiagolizardo.jerba.controllers.admin;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -74,8 +75,11 @@ public class AddArticleServlet extends BaseServlet {
 
 		article.setPublicationDate(pubDate);
 
-		int year = pubDate.getYear() + 1900;
-		int month = pubDate.getMonth() + 1;
+		Calendar pubDateCalendar = Calendar.getInstance();
+		pubDateCalendar.setTime(pubDate);
+
+		int year = pubDateCalendar.get(Calendar.YEAR);
+		int month = pubDateCalendar.get(Calendar.MONTH) + 1;
 
 		// Save transaction.
 

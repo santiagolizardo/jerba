@@ -23,6 +23,7 @@ import net.tanesha.recaptcha.ReCaptcha;
 import net.tanesha.recaptcha.ReCaptchaFactory;
 import net.tanesha.recaptcha.ReCaptchaResponse;
 
+@SuppressWarnings("unchecked")
 public class ContactServlet extends BaseServlet {
 
 	private static final Logger LOGGER = Logger.getLogger(ContactServlet.class

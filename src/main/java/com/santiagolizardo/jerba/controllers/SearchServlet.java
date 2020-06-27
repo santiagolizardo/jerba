@@ -15,6 +15,7 @@ import com.santiagolizardo.jerba.model.SearchResult;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
 import com.santiagolizardo.jerba.utilities.StringUtils;
 
+@SuppressWarnings("unchecked")
 public class SearchServlet extends BaseServlet {
 
 	@Override
