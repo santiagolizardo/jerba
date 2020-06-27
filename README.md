@@ -23,7 +23,7 @@ $ mvn appengine:run
 ### How to deploy it to Google App Engine
 
 ```sh
-$ mvn appengine:update
+$ mvn appengine:deploy -Dapp.deploy.projectId=YOUR-PROJECT-ID -Dapp.deploy.version=YOUR-PROJECT-VERSION
 ```
 
 ### Other useful commands
