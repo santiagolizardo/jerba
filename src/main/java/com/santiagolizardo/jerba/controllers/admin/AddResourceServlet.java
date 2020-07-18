@@ -34,6 +34,7 @@ public class AddResourceServlet extends BaseServlet {
 
 		if (blobKey == null) {
 			resp.sendRedirect("/admin/resource/add.jsp?error");
+			return;
 		}
 
 		Resource resource = new Resource();

@@ -14,14 +14,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.santiagolizardo.jerba.utilities.GoogleRecaptcha;
 import org.apache.velocity.VelocityContext;
 
 import com.santiagolizardo.jerba.managers.ConfigManager;
 import com.santiagolizardo.jerba.utilities.CacheSingleton;
-
-import net.tanesha.recaptcha.ReCaptcha;
-import net.tanesha.recaptcha.ReCaptchaFactory;
-import net.tanesha.recaptcha.ReCaptchaResponse;
 
 @SuppressWarnings("unchecked")
 public class ContactServlet extends BaseServlet {
@@ -33,18 +30,14 @@ public class ContactServlet extends BaseServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
-		Properties props = new Properties();
-		Session session = Session.getDefaultInstance(props, null);
-
 		String fromName = req.getParameter("fromName");
 		String fromEmail = req.getParameter("fromEmail");
 		String msgBody = req.getParameter("message");
 
-		String challengeParam = req.getParameter("recaptcha_challenge_field");
-		String responseParam = req.getParameter("recaptcha_response_field");
+		String recaptchaResponse = req.getParameter("g-recaptcha-response");
 
 		if (null == fromName || null == fromEmail || null == msgBody
-				|| null == challengeParam || null == responseParam) {
+				|| null == recaptchaResponse) {
 			LOGGER.warning("Invalid/missing params");
 			sendErrorResponse(resp, HttpServletResponse.SC_NOT_FOUND);
 			return;
@@ -54,19 +47,19 @@ public class ContactServlet extends BaseServlet {
 
 		ConfigManager configManager = ConfigManager.getInstance();
 
-		ReCaptcha captcha = ReCaptchaFactory.newReCaptcha(
-				configManager.getValue(ConfigManager.RECAPTCHA_PUBLIC_KEY),
-				configManager.getValue(ConfigManager.RECAPTCHA_PRIVATE_KEY),
-				false);
-		ReCaptchaResponse response = captcha.checkAnswer(remoteAddr,
-				challengeParam, responseParam);
+		GoogleRecaptcha googleRecaptcha = new GoogleRecaptcha(configManager.getValue(ConfigManager.RECAPTCHA_PUBLIC_KEY),
+				configManager.getValue(ConfigManager.RECAPTCHA_PRIVATE_KEY));
 
-		if (!response.isValid()) {
-			resp.sendRedirect("/contact?error=" + response.getErrorMessage());
+		if (!googleRecaptcha.isValid(recaptchaResponse, remoteAddr)) {
+			resp.sendRedirect("/contact?error=invalid-token");
+			return;
 		} else {
 			InternetAddress address = new InternetAddress(
 					configManager.getValue(ConfigManager.ADMINISTRATOR_EMAIL),
 					configManager.getValue(ConfigManager.ADMINISTRATOR_NAME));
+
+			Properties props = new Properties();
+			Session session = Session.getDefaultInstance(props, null);
 
 			try {
 				Message msg = new MimeMessage(session);
@@ -84,7 +77,7 @@ public class ContactServlet extends BaseServlet {
 			}
 		}
 
-		resp.sendRedirect("/");
+		resp.sendRedirect("/contact");
 	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -97,15 +90,8 @@ public class ContactServlet extends BaseServlet {
 		} else {
 			ConfigManager configManager = ConfigManager.getInstance();
 
-			ReCaptcha captcha = ReCaptchaFactory
-					.newReCaptcha(
-							configManager
-									.getValue(ConfigManager.RECAPTCHA_PUBLIC_KEY),
-							configManager
-									.getValue(ConfigManager.RECAPTCHA_PRIVATE_KEY),
-							false);
-			String captchaScript = captcha.createRecaptchaHtml(
-					req.getParameter("error"), null);
+			String siteKey = configManager
+									.getValue(ConfigManager.RECAPTCHA_PUBLIC_KEY);
 
 			VelocityContext context = prepareContext(req);
 			context.put(
@@ -113,7 +99,7 @@ public class ContactServlet extends BaseServlet {
 					"Contact form and information"
 							+ configManager
 									.getValue(ConfigManager.WEBSITE_TITLE_SUFFIX));
-			context.put("htmlCaptcha", captchaScript);
+			context.put("siteKey", siteKey);
 			output = generateTemplate("contact.vm", context);
 			cache.put(cacheKey, output);
 		}

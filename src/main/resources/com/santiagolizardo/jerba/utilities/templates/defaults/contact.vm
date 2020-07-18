@@ -1,10 +1,10 @@
 #parse("header.vm")
 
-<script type="text/javascript" src="http://api.recaptcha.net/js/recaptcha_ajax.js"></script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
 
 <h2>Contact information</h2>
 
-<form class="contact-form" action="/contact" method="post">
+<form id="contactForm" class="contact-form" action="/contact" method="post">
 
 <p>
 <label for="fromName">Your name</label>
@@ -27,14 +27,18 @@
 </p>
 
 <p>
-<label for="captcha">Anti bots and spam validation</label>
-$htmlCaptcha
-</p>
-
-<p>
-	<button type="submit">Send</button>
+<button class="g-recaptcha"
+        data-sitekey="$siteKey"
+        data-callback='onSubmit'
+        data-action='submit'>Submit</button>
 </p>
 
 </form>
+
+<script>
+function onSubmit(token) {
+    document.getElementById("contactForm").submit();
+}
+</script>
 
 #parse("footer.vm")
