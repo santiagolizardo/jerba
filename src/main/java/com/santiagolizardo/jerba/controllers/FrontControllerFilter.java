@@ -18,6 +18,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import com.google.appengine.api.utils.SystemProperty;
 import com.santiagolizardo.jerba.utilities.Config;
 import com.santiagolizardo.jerba.utilities.ConfigReader;
 import org.w3c.dom.Document;
@@ -108,7 +109,9 @@ public class FrontControllerFilter implements Filter {
 			return;
 		}
 
-		if(!config.isInsecureHttpAllowed() && !req.isSecure()) {
+		boolean isProduction = SystemProperty.environment.value() == SystemProperty.Environment.Value.Production;
+
+		if(isProduction && !config.isInsecureHttpAllowed() && !req.isSecure()) {
 			String newUrl = ((HttpServletRequest) request).getRequestURL().toString();
 			resp.sendRedirect(newUrl.replaceFirst("http", "https"));
 			return;
