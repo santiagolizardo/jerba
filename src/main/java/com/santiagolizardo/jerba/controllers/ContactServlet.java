@@ -65,7 +65,7 @@ public class ContactServlet extends BaseServlet {
 				Message msg = new MimeMessage(session);
 				msg.setFrom(address);
 				msg.addRecipient(Message.RecipientType.TO, address);
-				msg.setSubject("Contact form");
+				msg.setSubject("[Jerba] Message received");
 				String header = String.format("From: %s (%s)%n%n", fromName,
 						fromEmail);
 				msg.setText(header + msgBody);
