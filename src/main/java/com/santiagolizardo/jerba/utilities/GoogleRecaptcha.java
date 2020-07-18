@@ -1,5 +1,6 @@
 package com.santiagolizardo.jerba.utilities;
 
+import com.google.appengine.api.urlfetch.URLFetchService;
 import org.json.JSONObject;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -7,7 +8,9 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GoogleRecaptcha {
@@ -38,7 +41,7 @@ public class GoogleRecaptcha {
 
         try {
             URL obj = new URL(RECAPTCHA_SERVICE_URL);
-            HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
             con.setRequestMethod("POST");
             con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
@@ -81,8 +84,9 @@ public class GoogleRecaptcha {
             logger.info("score : " + score);
 
             return (success && score >= 0.5);
-        } catch(IOException ioe) {
-            logger.warning(ioe.getMessage());
+        } catch(Exception ioe) {
+            logger.log(Level.SEVERE, ioe.getMessage(), ioe);
+
             // On error the fallback is to an invalid token
             return false;
         }

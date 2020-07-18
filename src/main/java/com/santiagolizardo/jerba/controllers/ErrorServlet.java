@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/error-page"})
 public class ErrorServlet extends CommandServlet {
 
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		int errorCode = HttpServletResponse.SC_NOT_FOUND;

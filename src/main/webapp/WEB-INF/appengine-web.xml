@@ -3,9 +3,8 @@
 	<threadsafe>true</threadsafe>
 	<runtime>java8</runtime>
 	<ssl-enabled>true</ssl-enabled>
+	<version>${appengine.app.version}</version>
 
-
-	<!-- Configure java.util.logging -->
 	<system-properties>
 		<property name="java.util.logging.config.file" value="WEB-INF/logging.properties" />
 	</system-properties>
@@ -21,5 +20,7 @@
 		<include path="/images/**" expiration="4d 5h" />
 		<include path="/components/**" expiration="4d 5h" />
 	</static-files>
+
+	<url-stream-handler>urlfetch</url-stream-handler>
 
 </appengine-web-app>

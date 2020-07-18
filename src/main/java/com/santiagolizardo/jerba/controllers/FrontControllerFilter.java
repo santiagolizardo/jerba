@@ -45,6 +45,7 @@ public class FrontControllerFilter implements Filter {
 
 	private Config config;
 
+	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		initRedirections(filterConfig);
 		initRoutes();
@@ -96,6 +97,7 @@ public class FrontControllerFilter implements Filter {
 		}
 	}
 
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
@@ -161,6 +163,7 @@ public class FrontControllerFilter implements Filter {
 		return false;
 	}
 
+	@Override
 	public void destroy() {
 	}
 }
