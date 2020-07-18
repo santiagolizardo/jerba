@@ -4,10 +4,8 @@ hotspot.log
 *.iws
 target/
 classes/
-/var
 pom.xml.versionsBackup
 test-output/
-/atlassian-ide-plugin.xml
 .idea
 .DS_Store
 .classpath
@@ -21,3 +19,4 @@ datanucleus.log
 nbactions.xml
 jerba-config.xml
 src/main/webapp/components
+node_modules

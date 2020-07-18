@@ -9,7 +9,7 @@ Simple Content Management System written in Java and designed to be deployed in 
   - Java Development Kit 11
   - Google App Engine SDK 1.9 for Java
   - Maven 3.5+
-  - Bower JS
+  - [Yarn](https://yarnpkg.com/) package manager
 
 ### How to try it
 
